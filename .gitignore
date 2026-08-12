@@ -1,0 +1,29 @@
+## Ignore Visual Studio / Rider / VS Code temp files
+.idea/
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+build/
+
+## Test results
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Docker
+docker-compose.override.yml
+
+## OS generated files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
