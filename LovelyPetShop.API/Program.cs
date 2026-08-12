@@ -50,6 +50,9 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
+app.MapGet("/salud", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+
 app.MapControllers();
 
 app.Run();
