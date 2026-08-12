@@ -1,0 +1,15 @@
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/bin/Debug/net10.0/LovelyPetShop.DataAccess.deps.json
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/bin/Debug/net10.0/LovelyPetShop.DataAccess.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/bin/Debug/net10.0/LovelyPetShop.DataAccess.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/bin/Debug/net10.0/LovelyPetShop.Domain.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/bin/Debug/net10.0/LovelyPetShop.Domain.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.csproj.AssemblyReference.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.AssemblyInfoInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.AssemblyInfo.cs
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.csproj.CoreCompileInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPe.49BF6157.Up2Date
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/refint/LovelyPetShop.DataAccess.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/LovelyPetShop.DataAccess.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess/obj/Debug/net10.0/ref/LovelyPetShop.DataAccess.dll

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="LovelyPetShop.API/LovelyPetShop.API.csproj" />
+  <Project Path="LovelyPetShop.Business/LovelyPetShop.Business.csproj" />
+  <Project Path="LovelyPetShop.DataAccess/LovelyPetShop.DataAccess.csproj" />
+  <Project Path="LovelyPetShop.Domain/LovelyPetShop.Domain.csproj" />
+  <Project Path="LovelyPetShop.Tests/LovelyPetShop.Tests.csproj" />
+</Solution>

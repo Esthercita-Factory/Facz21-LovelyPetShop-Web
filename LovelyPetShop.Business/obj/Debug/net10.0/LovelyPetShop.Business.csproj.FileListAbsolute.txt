@@ -1,0 +1,15 @@
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/bin/Debug/net10.0/LovelyPetShop.Business.deps.json
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/bin/Debug/net10.0/LovelyPetShop.Business.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/bin/Debug/net10.0/LovelyPetShop.Business.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/bin/Debug/net10.0/LovelyPetShop.Domain.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/bin/Debug/net10.0/LovelyPetShop.Domain.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.csproj.AssemblyReference.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.GeneratedMSBuildEditorConfig.editorconfig
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.AssemblyInfoInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.AssemblyInfo.cs
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.csproj.CoreCompileInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPe.3FE8A3D2.Up2Date
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/refint/LovelyPetShop.Business.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/LovelyPetShop.Business.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/obj/Debug/net10.0/ref/LovelyPetShop.Business.dll

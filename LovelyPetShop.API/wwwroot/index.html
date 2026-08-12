@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LovelyPetShop - Clínica Veterinaria & Gestión de Mascotas</title>
+    <meta name="description" content="Sistema de gestión integral para clínica veterinaria LovelyPetShop. Registro de mascotas, propietarios, fichas clínicas y estadísticas en tiempo real.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .5 7 6.5 11 9.5 11s9-4 9.5-11c.113-.994-1.177-6.53-4-7-1.923-.321-3.5.782-3.5 2.172"></path>
+                        <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>LovelyPetShop</h1>
+                    <span class="brand-subtitle">Clínica Veterinaria</span>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <button class="nav-btn active" data-tab="dashboard-tab" id="nav-dashboard">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                    Dashboard
+                </button>
+                <button class="nav-btn" data-tab="pets-tab" id="nav-pets">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/><path d="M4 14c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M20 14c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M7 21c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M17 21c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/></svg>
+                    Mascotas
+                </button>
+                <button class="nav-btn" data-tab="owners-tab" id="nav-owners">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Propietarios
+                </button>
+                <button class="nav-btn accent-btn" data-tab="combined-tab" id="nav-combined">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Registro Rápido
+                </button>
+            </nav>
+
+            <div class="header-status">
+                <span class="status-indicator online"></span>
+                <span class="status-text">API Conectada (.NET 10)</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <!-- TAB 1: DASHBOARD -->
+        <section id="dashboard-tab" class="tab-pane active">
+            <div class="page-title-row">
+                <div>
+                    <h2>Resumen de la Clínica</h2>
+                    <p class="subtitle">Métricas clave e historial reciente de pacientes y propietarios.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="refresh-dashboard-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    Actualizar
+                </button>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card metric-primary">
+                    <div class="metric-icon">🐾</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Total Mascotas</span>
+                        <h3 class="metric-value" id="stat-total-pets">0</h3>
+                        <span class="metric-trend">Pacientes activos</span>
+                    </div>
+                </div>
+
+                <div class="metric-card metric-info-card">
+                    <div class="metric-icon">👤</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Propietarios</span>
+                        <h3 class="metric-value" id="stat-total-owners">0</h3>
+                        <span class="metric-trend">Clientes registrados</span>
+                    </div>
+                </div>
+
+                <div class="metric-card metric-accent">
+                    <div class="metric-icon">⭐</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Especie Principal</span>
+                        <h3 class="metric-value" id="stat-top-species">-</h3>
+                        <span class="metric-trend" id="stat-top-species-count">0 pacientes</span>
+                    </div>
+                </div>
+
+                <div class="metric-card metric-success">
+                    <div class="metric-icon">⚖️</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Promedio Edad / Peso</span>
+                        <h3 class="metric-value" id="stat-avg-metrics">0a / 0kg</h3>
+                        <span class="metric-trend">Promedio pacientes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-split">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Distribución por Especie</h3>
+                    </div>
+                    <div class="species-chart-container" id="species-chart">
+                        <!-- Dynamic species bars inserted here -->
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Últimas Mascotas Registradas</h3>
+                    </div>
+                    <div class="recent-feed" id="recent-pets-list">
+                        <!-- Dynamic recent pets list -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MASCOTAS -->
+        <section id="pets-tab" class="tab-pane">
+            <div class="page-title-row">
+                <div>
+                    <h2>Gestión de Mascotas</h2>
+                    <p class="subtitle">Listado, búsqueda y control de historias clínicas de pacientes.</p>
+                </div>
+                <button class="btn btn-primary" id="open-add-pet-modal-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Nueva Mascota
+                </button>
+            </div>
+
+            <div class="filter-bar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="pet-search-input" placeholder="Buscar por nombre, raza o doc. de propietario...">
+                </div>
+                <select id="pet-species-filter" class="custom-select">
+                    <option value="">Todas las especies</option>
+                    <option value="Perro">Perros 🐶</option>
+                    <option value="Gato">Gatos 🐱</option>
+                    <option value="Conejo">Conejos 🐰</option>
+                    <option value="Ave">Aves 🦜</option>
+                    <option value="Otro">Otros 🐾</option>
+                </select>
+            </div>
+
+            <div class="pets-grid" id="pets-grid-container">
+                <!-- Dynamic Pet Cards -->
+            </div>
+        </section>
+
+        <!-- TAB 3: PROPIETARIOS -->
+        <section id="owners-tab" class="tab-pane">
+            <div class="page-title-row">
+                <div>
+                    <h2>Gestión de Propietarios</h2>
+                    <p class="subtitle">Directorio de dueños y vinculación con sus mascotas.</p>
+                </div>
+                <button class="btn btn-primary" id="open-add-owner-modal-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Nuevo Propietario
+                </button>
+            </div>
+
+            <div class="filter-bar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="owner-search-input" placeholder="Buscar por nombre, documento o teléfono...">
+                </div>
+            </div>
+
+            <div class="owners-grid" id="owners-grid-container">
+                <!-- Dynamic Owner Cards -->
+            </div>
+        </section>
+
+        <!-- TAB 4: REGISTRO CONJUNTO -->
+        <section id="combined-tab" class="tab-pane">
+            <div class="page-title-row">
+                <div>
+                    <h2>Registro Rápido (1 Paso)</h2>
+                    <p class="subtitle">Registra al propietario y su mascota simultáneamente en un solo formulario.</p>
+                </div>
+            </div>
+
+            <div class="glass-card form-card-wrapper">
+                <form id="combined-registration-form" class="dual-form">
+                    <div class="form-column">
+                        <div class="section-title">
+                            <span class="section-badge">1</span>
+                            <h3>Datos del Propietario</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="comb-doc-type">Tipo de Documento *</label>
+                                <select id="comb-doc-type" required class="custom-select">
+                                    <option value="CC">CC - Cédula de Ciudadanía</option>
+                                    <option value="CE">CE - Cédula de Extranjería</option>
+                                    <option value="TI">TI - Tarjeta de Identidad</option>
+                                    <option value="NIT">NIT - NIT</option>
+                                    <option value="PASAPORTE">PASAPORTE - Pasaporte</option>
+                                    <option value="PEP">PEP - Permiso Especial</option>
+                                    <option value="PPT">PPT - Permiso Protección</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comb-doc-num">Número de Documento *</label>
+                                <input type="text" id="comb-doc-num" placeholder="Ej: 1018234567" required class="custom-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comb-owner-name">Nombre Completo del Propietario *</label>
+                            <input type="text" id="comb-owner-name" placeholder="Ej: Ana María Morales" required class="custom-input">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="comb-owner-phone">Teléfono de Contacto *</label>
+                                <input type="tel" id="comb-owner-phone" placeholder="Ej: 3001234567" required class="custom-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="comb-owner-email">Correo Electrónico</label>
+                                <input type="email" id="comb-owner-email" placeholder="ejemplo@correo.com" class="custom-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comb-owner-address">Dirección de Residencia</label>
+                            <input type="text" id="comb-owner-address" placeholder="Ej: Calle 45 # 12-34" class="custom-input">
+                        </div>
+                    </div>
+
+                    <div class="form-divider"></div>
+
+                    <div class="form-column">
+                        <div class="section-title">
+                            <span class="section-badge badge-pet">2</span>
+                            <h3>Datos de la Mascota</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comb-pet-name">Nombre de la Mascota *</label>
+                            <input type="text" id="comb-pet-name" placeholder="Ej: Toby" required class="custom-input">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="comb-pet-species">Especie *</label>
+                                <select id="comb-pet-species" required class="custom-select">
+                                    <option value="Perro">Perro 🐶</option>
+                                    <option value="Gato">Gato 🐱</option>
+                                    <option value="Conejo">Conejo 🐰</option>
+                                    <option value="Ave">Ave 🦜</option>
+                                    <option value="Otro">Otro 🐾</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comb-pet-breed">Raza</label>
+                                <input type="text" id="comb-pet-breed" placeholder="Ej: Poodle / Criollo" class="custom-input">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="comb-pet-age">Edad (Años) *</label>
+                                <input type="number" id="comb-pet-age" min="0" value="1" required class="custom-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="comb-pet-weight">Peso (Kg) *</label>
+                                <input type="number" id="comb-pet-weight" min="0" step="0.1" value="5.0" required class="custom-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comb-pet-symptoms">Síntomas / Motivo de Consulta</label>
+                            <textarea id="comb-pet-symptoms" rows="3" placeholder="Ej: Control de vacunas, desparasitación o síntomas..." class="custom-textarea"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                Completar Registro Conjunto
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL MASCOTA -->
+    <div class="modal-overlay" id="pet-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="pet-modal-title">Registrar Mascota</h3>
+                <button class="close-btn" id="close-pet-modal">&times;</button>
+            </div>
+            <form id="pet-form">
+                <input type="hidden" id="pet-uuid-input">
+                
+                <div class="form-group">
+                    <label for="pet-owner-doc">Documento del Propietario *</label>
+                    <select id="pet-owner-doc" required class="custom-select">
+                        <option value="">Cargando propietarios...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pet-name">Nombre de la Mascota *</label>
+                    <input type="text" id="pet-name" required class="custom-input" placeholder="Nombre de la mascota">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pet-species">Especie *</label>
+                        <select id="pet-species" required class="custom-select">
+                            <option value="Perro">Perro 🐶</option>
+                            <option value="Gato">Gato 🐱</option>
+                            <option value="Conejo">Conejo 🐰</option>
+                            <option value="Ave">Ave 🦜</option>
+                            <option value="Otro">Otro 🐾</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-breed">Raza</label>
+                        <input type="text" id="pet-breed" class="custom-input" placeholder="Raza">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pet-age">Edad (Años)</label>
+                        <input type="number" id="pet-age" min="0" value="1" required class="custom-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-weight">Peso (Kg)</label>
+                        <input type="number" id="pet-weight" min="0" step="0.1" value="4.0" required class="custom-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pet-symptoms">Síntomas / Observaciones</label>
+                    <textarea id="pet-symptoms" rows="3" class="custom-textarea" placeholder="Describa el motivo de consulta..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel-pet-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Mascota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PROPIETARIO -->
+    <div class="modal-overlay" id="owner-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="owner-modal-title">Registrar Propietario</h3>
+                <button class="close-btn" id="close-owner-modal">&times;</button>
+            </div>
+            <form id="owner-form">
+                <input type="hidden" id="owner-original-doc">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="owner-doc-type">Tipo Documento *</label>
+                        <select id="owner-doc-type" required class="custom-select">
+                            <option value="CC">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="TI">TI</option>
+                            <option value="NIT">NIT</option>
+                            <option value="PASAPORTE">PASAPORTE</option>
+                            <option value="PEP">PEP</option>
+                            <option value="PPT">PPT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="owner-doc-num">Número Documento *</label>
+                        <input type="text" id="owner-doc-num" required class="custom-input" placeholder="Número de documento">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="owner-name">Nombre Completo *</label>
+                    <input type="text" id="owner-name" required class="custom-input" placeholder="Nombre completo">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="owner-phone">Teléfono *</label>
+                        <input type="tel" id="owner-phone" required class="custom-input" placeholder="Teléfono celular">
+                    </div>
+                    <div class="form-group">
+                        <label for="owner-email">Correo Electrónico</label>
+                        <input type="email" id="owner-email" class="custom-input" placeholder="Correo electrónico">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="owner-address">Dirección de Residencia</label>
+                    <input type="text" id="owner-address" class="custom-input" placeholder="Dirección">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel-owner-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Propietario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

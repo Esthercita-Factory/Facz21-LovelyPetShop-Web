@@ -1,0 +1,11 @@
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/bin/Debug/net10.0/LovelyPetShop.Domain.deps.json
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/bin/Debug/net10.0/LovelyPetShop.Domain.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/bin/Debug/net10.0/LovelyPetShop.Domain.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.AssemblyInfoInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.AssemblyInfo.cs
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.csproj.CoreCompileInputs.cache
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/refint/LovelyPetShop.Domain.dll
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/LovelyPetShop.Domain.pdb
+/home/facz/Documentos/Facz.dev/C#/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain/obj/Debug/net10.0/ref/LovelyPetShop.Domain.dll
