@@ -125,7 +125,7 @@ jobs:
           fi
           ssh -i ~/.ssh/id_ed25519 \
               "${{ vars.SSH_USER }}@${{ vars.SSH_HOST }}" \
-              "mkdir -p /srv/$TARGET_APP 2>/dev/null || sudo mkdir -p /srv/$TARGET_APP; /usr/local/bin/desplegar.sh $TARGET_APP"
+              "/usr/local/bin/desplegar.sh $TARGET_APP"
 
       - name: Comprobar que el sitio responde
         run: |
