@@ -119,7 +119,7 @@ jobs:
 
       - name: Descargar la imagen nueva y reiniciar
         run: |
-          TARGET_APP="${{ vars.DOMAIN }}"
+          TARGET_APP="${{ vars.PROJECT_NAME }}"
           if [ -z "$TARGET_APP" ]; then
             TARGET_APP="${{ github.event.repository.name }}"
           fi
