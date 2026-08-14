@@ -33,6 +33,8 @@ public class FakeProductRepository : IProductRepository
         if (existing != null) _products.Remove(existing);
         return Task.CompletedTask;
     }
+    public Task<Product?> GetBySkuAsync(string sku) => Task.FromResult(_products.FirstOrDefault(p => p.SKU == sku));
+    public Task DeleteByUuidAsync(string uuid) => DeleteAsync(uuid);
 }
 
 public class FakeEmployeeRepository : IEmployeeRepository
@@ -61,6 +63,12 @@ public class FakeEmployeeRepository : IEmployeeRepository
     public Task DeleteAsync(string documentNumber)
     {
         var existing = _employees.FirstOrDefault(e => e.DocumentNumber == documentNumber);
+        if (existing != null) _employees.Remove(existing);
+        return Task.CompletedTask;
+    }
+    public Task DeleteByUuidAsync(string uuid)
+    {
+        var existing = _employees.FirstOrDefault(e => e.Uuid == uuid);
         if (existing != null) _employees.Remove(existing);
         return Task.CompletedTask;
     }
