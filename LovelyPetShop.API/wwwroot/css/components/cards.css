@@ -1,0 +1,267 @@
+/* Metric Cards */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: var(--transition);
+}
+.metric-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-glow);
+}
+.metric-icon {
+    font-size: 1.8rem;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+.metric-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.metric-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin: 0.1rem 0;
+}
+.metric-trend {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+}
+
+.metric-primary .metric-icon { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+.metric-primary .metric-value { color: #818cf8; }
+
+.metric-info-card .metric-icon { background: rgba(6, 182, 212, 0.15); color: #38bdf8; }
+.metric-info-card .metric-value { color: #38bdf8; }
+
+.metric-accent .metric-icon { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.metric-accent .metric-value { color: #fbbf24; }
+
+.metric-success .metric-icon { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.metric-success .metric-value { color: #34d399; }
+
+/* Dashboard Split */
+.dashboard-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+@media (max-width: 900px) {
+    .dashboard-split { grid-template-columns: 1fr; }
+}
+
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.card-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Species Chart Container */
+.species-chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+.species-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.species-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+.species-bar-track {
+    height: 10px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+.species-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.8s ease;
+}
+
+/* Recent Feed */
+.recent-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.recent-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+.recent-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+.recent-item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.recent-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Grid Cards (Pets & Owners) */
+.pets-grid, .owners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+
+.pet-card, .owner-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+.pet-card:hover, .owner-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow-glow);
+}
+
+.card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+.pet-title-block, .owner-title-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.pet-emoji-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: rgba(99, 102, 241, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+.pet-card h4, .owner-card h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+
+}
+.pet-card .breed-text, .owner-card .doc-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Badge Pills */
+.badge {
+    padding: 0.25rem 0.65rem;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.badge-perro { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
+.badge-gato { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+.badge-conejo { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-ave { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+.badge-otro { background: rgba(156, 163, 175, 0.2); color: #d1d5db; border: 1px solid rgba(156, 163, 175, 0.3); }
+
+.details-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+}
+
+.symptoms-box {
+    background: rgba(0, 0, 0, 0.25);
+    border-left: 3px solid var(--accent-cyan);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.82rem;
+    color: #e5e7eb;
+    margin-bottom: 1rem;
+}
+.symptoms-box strong { color: var(--accent-cyan); }
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border-color);
+}

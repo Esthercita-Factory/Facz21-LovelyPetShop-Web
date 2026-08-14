@@ -10,12 +10,24 @@ Directory.CreateDirectory(dataDirectory);
 
 string ownersFilePath = Path.Combine(dataDirectory, "owners.json");
 string petsFilePath = Path.Combine(dataDirectory, "pets.json");
+string appointmentsFilePath = Path.Combine(dataDirectory, "appointments.json");
+string medicalRecordsFilePath = Path.Combine(dataDirectory, "medical_records.json");
+string employeesFilePath = Path.Combine(dataDirectory, "employees.json");
+string productsFilePath = Path.Combine(dataDirectory, "products.json");
 
 builder.Services.AddSingleton<IOwnerRepository>(new JsonOwnerRepository(ownersFilePath));
 builder.Services.AddSingleton<IPetRepository>(new JsonPetRepository(petsFilePath));
+builder.Services.AddSingleton<IAppointmentRepository>(new JsonAppointmentRepository(appointmentsFilePath));
+builder.Services.AddSingleton<IMedicalRecordRepository>(new JsonMedicalRecordRepository(medicalRecordsFilePath));
+builder.Services.AddSingleton<IEmployeeRepository>(new JsonEmployeeRepository(employeesFilePath));
+builder.Services.AddSingleton<IProductRepository>(new JsonProductRepository(productsFilePath));
 
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
