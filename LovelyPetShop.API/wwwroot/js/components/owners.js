@@ -33,7 +33,8 @@ export function renderOwners() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                👤 No se encontraron propietarios registrados.
+                <div style="margin-bottom:1rem; opacity:0.5;"><i data-lucide="users" style="width:32px;height:32px;"></i></div>
+                No se encontraron propietarios registrados.
             </div>`;
         return;
     }
@@ -45,19 +46,21 @@ export function renderOwners() {
             <div>
                 <div class="card-top-row">
                     <div class="owner-title-block">
-                        <div class="pet-emoji-avatar" style="background: rgba(6, 182, 212, 0.15)">👤</div>
+                        <div class="pet-emoji-avatar" style="background: rgba(99, 102, 241, 0.15)">
+                            <i data-lucide="user" style="width:24px;height:24px;"></i>
+                        </div>
                         <div>
                             <h4>${o.name}</h4>
-                            <span class="doc-text">${o.documentType}: ${o.documentNumber}</span>
                         </div>
                     </div>
                     <span class="badge badge-otro">${o.pets.length} mascota(s)</span>
                 </div>
 
                 <div class="details-list">
-                    <div class="detail-item">📞 ${o.phone}</div>
-                    <div class="detail-item">✉️ ${o.email || 'N/A'}</div>
-                    <div class="detail-item">🏠 ${o.address || 'N/A'}</div>
+                    <div class="detail-item"><i data-lucide="id-card" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${o.documentType}: ${o.documentNumber}</div>
+                    <div class="detail-item"><i data-lucide="phone" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${o.phone}</div>
+                    <div class="detail-item"><i data-lucide="mail" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${o.email || 'N/A'}</div>
+                    <div class="detail-item"><i data-lucide="map-pin" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${o.address || 'N/A'}</div>
                 </div>
 
                 <div style="margin: 0.8rem 0; font-size: 0.85rem;">
@@ -71,8 +74,12 @@ export function renderOwners() {
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-secondary btn-sm edit-owner-btn" data-doc="${o.documentNumber}">✏️ Editar</button>
-                <button class="btn btn-danger btn-sm delete-owner-btn" data-doc="${o.documentNumber}" data-name="${o.name}">🗑️ Eliminar</button>
+                <button class="btn btn-secondary btn-sm edit-owner-btn" data-doc="${o.documentNumber}">
+                    <i data-lucide="edit-3" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm delete-owner-btn" data-doc="${o.documentNumber}" data-name="${o.name}">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Eliminar
+                </button>
             </div>
         `;
         container.appendChild(card);
@@ -84,6 +91,8 @@ export function renderOwners() {
     document.querySelectorAll('.delete-owner-btn').forEach(b => {
         b.addEventListener('click', () => deleteOwner(b.getAttribute('data-doc'), b.getAttribute('data-name')));
     });
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 async function deleteOwner(docNumber, name) {

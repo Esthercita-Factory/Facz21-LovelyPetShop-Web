@@ -12,14 +12,12 @@ export function showToast(message, type = 'success') {
 }
 
 export function getSpeciesEmoji(species) {
-    if (!species) return '🐾';
     const s = species.toLowerCase();
-    if (s.includes('perro') || s.includes('dog')) return '🐶';
-    if (s.includes('gato') || s.includes('cat')) return '🐱';
-    if (s.includes('conejo') || s.includes('rabbit')) return '🐰';
-    if (s.includes('ave') || s.includes('bird') || s.includes('loro')) return '🦜';
-    if (s.includes('pez') || s.includes('fish')) return '🐠';
-    return '🐾';
+    if (s === 'perro') return '<i data-lucide="dog" style="width:24px;height:24px;"></i>';
+    if (s === 'gato') return '<i data-lucide="cat" style="width:24px;height:24px;"></i>';
+    if (s === 'conejo') return '<i data-lucide="rabbit" style="width:24px;height:24px;"></i>';
+    if (s === 'ave') return '<i data-lucide="bird" style="width:24px;height:24px;"></i>';
+    return '<i data-lucide="paw-print" style="width:24px;height:24px;"></i>';
 }
 
 export function getSpeciesBadgeClass(species) {

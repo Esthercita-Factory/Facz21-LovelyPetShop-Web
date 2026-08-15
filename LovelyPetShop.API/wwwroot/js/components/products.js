@@ -32,7 +32,8 @@ export function renderProducts() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                📦 No se encontraron productos registrados en el inventario.
+                <div style="margin-bottom:1rem; opacity:0.5;"><i data-lucide="package-x" style="width:32px;height:32px;"></i></div>
+                No se encontraron productos registrados en el inventario.
             </div>`;
         return;
     }
@@ -51,10 +52,10 @@ export function renderProducts() {
             stockLabel = 'Stock Bajo';
         }
 
-        let catEmoji = '📦';
-        if(p.category === 'Medicamento' || p.category === 'Vacuna') catEmoji = '💊';
-        if(p.category === 'Alimento') catEmoji = '🦴';
-        if(p.category === 'Higiene') catEmoji = '🧼';
+        let catEmoji = '<i data-lucide="package" style="width:24px;height:24px;"></i>';
+        if(p.category === 'Medicamento' || p.category === 'Vacuna') catEmoji = '<i data-lucide="pill" style="width:24px;height:24px;"></i>';
+        if(p.category === 'Alimento') catEmoji = '<i data-lucide="bone" style="width:24px;height:24px;"></i>';
+        if(p.category === 'Higiene') catEmoji = '<i data-lucide="droplets" style="width:24px;height:24px;"></i>';
 
         card.innerHTML = `
             <div>
@@ -70,8 +71,8 @@ export function renderProducts() {
                 </div>
 
                 <div class="details-list" style="margin-top: 1.5rem;">
-                    <div class="detail-item">📦 Stock: <strong>${p.stockQuantity}</strong></div>
-                    <div class="detail-item">🏢 Prov: ${p.supplier || 'N/A'}</div>
+                    <div class="detail-item"><i data-lucide="box" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> Stock: <strong>${p.stockQuantity}</strong></div>
+                    <div class="detail-item"><i data-lucide="building" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> Prov: ${p.supplier || 'N/A'}</div>
                 </div>
                 
                 <div style="margin-bottom: 1rem;">
@@ -80,8 +81,12 @@ export function renderProducts() {
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-secondary btn-sm edit-prod-btn" data-uuid="${p.uuid}">✏️ Editar</button>
-                <button class="btn btn-danger btn-sm delete-prod-btn" data-uuid="${p.uuid}" data-name="${p.name}">🗑️ Eliminar</button>
+                <button class="btn btn-secondary btn-sm edit-prod-btn" data-uuid="${p.uuid}">
+                    <i data-lucide="edit-3" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm delete-prod-btn" data-uuid="${p.uuid}" data-name="${p.name}">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Eliminar
+                </button>
             </div>
         `;
         container.appendChild(card);
@@ -93,6 +98,8 @@ export function renderProducts() {
     document.querySelectorAll('.delete-prod-btn').forEach(b => {
         b.addEventListener('click', () => deleteProduct(b.getAttribute('data-uuid'), b.getAttribute('data-name')));
     });
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 async function deleteProduct(uuid, name) {

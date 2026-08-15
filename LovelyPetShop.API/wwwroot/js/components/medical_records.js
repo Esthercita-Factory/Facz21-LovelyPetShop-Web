@@ -42,14 +42,15 @@ async function loadHistoryList(petUuid) {
             card.innerHTML = `
                 <div style="display:flex; justify-content:space-between; margin-bottom: 0.4rem;">
                     <strong style="color: var(--primary);">${dObj.toLocaleDateString()}</strong>
-                    <span style="color: var(--text-muted);">⚖️ ${r.weight} kg</span>
+                    <span style="color: var(--text-muted);"><i data-lucide="scale" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${r.weight} kg</span>
                 </div>
                 <div style="margin-bottom:0.3rem;"><strong>Dx:</strong> ${r.diagnosis}</div>
                 <div style="color: var(--text-muted); margin-bottom:0.3rem;"><strong>Tratamiento:</strong> ${r.treatment || 'N/A'}</div>
-                ${nvObj ? `<div style="color: var(--accent-cyan);">💉 Próxima Vacuna: ${nvObj.toLocaleDateString()}</div>` : ''}
+                ${nvObj ? `<div style="color: var(--accent-cyan);"><i data-lucide="syringe" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> Próxima Vacuna: ${nvObj.toLocaleDateString()}</div>` : ''}
             `;
             listContainer.appendChild(card);
         });
+        if (window.lucide) window.lucide.createIcons();
     } catch (e) {
         listContainer.innerHTML = '<div style="color:var(--danger); font-size:0.85rem;">Error al cargar el historial.</div>';
     }

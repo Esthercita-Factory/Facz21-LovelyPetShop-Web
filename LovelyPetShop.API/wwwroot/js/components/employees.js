@@ -33,7 +33,8 @@ export function renderEmployees() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                🩺 No se encontraron empleados registrados.
+                <div style="margin-bottom:1rem; opacity:0.5;"><i data-lucide="users" style="width:32px;height:32px;"></i></div>
+                No se encontraron empleados registrados.
             </div>`;
         return;
     }
@@ -45,7 +46,9 @@ export function renderEmployees() {
             <div>
                 <div class="card-top-row">
                     <div class="owner-title-block">
-                        <div class="pet-emoji-avatar" style="background: rgba(16, 185, 129, 0.15)">🩺</div>
+                        <div class="pet-emoji-avatar" style="background: rgba(16, 185, 129, 0.15)">
+                            <i data-lucide="stethoscope" style="width:24px;height:24px;"></i>
+                        </div>
                         <div>
                             <h4>${e.name}</h4>
                             <span class="doc-text">${e.role} ${e.specialty ? `- ${e.specialty}` : ''}</span>
@@ -55,15 +58,19 @@ export function renderEmployees() {
                 </div>
 
                 <div class="details-list">
-                    <div class="detail-item">🆔 ${e.documentType}: ${e.documentNumber}</div>
-                    <div class="detail-item">📞 ${e.phone}</div>
-                    <div class="detail-item">✉️ ${e.email}</div>
+                    <div class="detail-item"><i data-lucide="id-card" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${e.documentType}: ${e.documentNumber}</div>
+                    <div class="detail-item"><i data-lucide="phone" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${e.phone}</div>
+                    <div class="detail-item"><i data-lucide="mail" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${e.email}</div>
                 </div>
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-secondary btn-sm edit-emp-btn" data-doc="${e.documentNumber}">✏️ Editar</button>
-                <button class="btn btn-danger btn-sm delete-emp-btn" data-doc="${e.documentNumber}" data-name="${e.name}">🗑️ Eliminar</button>
+                <button class="btn btn-secondary btn-sm edit-emp-btn" data-doc="${e.documentNumber}">
+                    <i data-lucide="edit-3" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm delete-emp-btn" data-doc="${e.documentNumber}" data-name="${e.name}">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Eliminar
+                </button>
             </div>
         `;
         container.appendChild(card);
@@ -75,6 +82,8 @@ export function renderEmployees() {
     document.querySelectorAll('.delete-emp-btn').forEach(b => {
         b.addEventListener('click', () => deleteEmployee(b.getAttribute('data-doc'), b.getAttribute('data-name')));
     });
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 async function deleteEmployee(docNumber, name) {

@@ -8,7 +8,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,32 +33,25 @@
 
             <nav class="main-nav">
                 <button class="nav-btn active" data-tab="dashboard-tab" id="nav-dashboard">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-                    Dashboard
+                    <i data-lucide="layout-dashboard"></i> Dashboard
                 </button>
                 <button class="nav-btn" data-tab="pets-tab" id="nav-pets">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/><path d="M4 14c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M20 14c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M7 21c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M17 21c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/></svg>
-                    Mascotas
+                    <i data-lucide="paw-print"></i> Mascotas
                 </button>
                 <button class="nav-btn" data-tab="owners-tab" id="nav-owners">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Propietarios
+                    <i data-lucide="users"></i> Propietarios
                 </button>
                 <button class="nav-btn" data-tab="appointments-tab" id="nav-appointments">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    Citas
+                    <i data-lucide="calendar-days"></i> Citas
                 </button>
                 <button class="nav-btn" data-tab="employees-tab" id="nav-employees">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="11" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-                    Personal
+                    <i data-lucide="stethoscope"></i> Personal
                 </button>
                 <button class="nav-btn" data-tab="products-tab" id="nav-products">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                    Inventario
+                    <i data-lucide="package"></i> Inventario
                 </button>
                 <button class="nav-btn accent-btn" data-tab="combined-tab" id="nav-combined">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Registro Rápido
+                    <i data-lucide="plus-circle"></i> Registro Rápido
                 </button>
             </nav>
 
@@ -84,7 +78,7 @@
 
             <div class="metrics-grid">
                 <div class="metric-card metric-primary">
-                    <div class="metric-icon">🐾</div>
+                    <div class="metric-icon"><i data-lucide="paw-print"></i></div>
                     <div class="metric-info">
                         <span class="metric-label">Total Mascotas</span>
                         <h3 class="metric-value" id="stat-total-pets">0</h3>
@@ -93,7 +87,7 @@
                 </div>
 
                 <div class="metric-card metric-info-card">
-                    <div class="metric-icon">👤</div>
+                    <div class="metric-icon"><i data-lucide="users"></i></div>
                     <div class="metric-info">
                         <span class="metric-label">Propietarios</span>
                         <h3 class="metric-value" id="stat-total-owners">0</h3>
@@ -111,7 +105,7 @@
                 </div>
 
                 <div class="metric-card metric-success">
-                    <div class="metric-icon">⚖️</div>
+                    <div class="metric-icon"><i data-lucide="package"></i></div>
                     <div class="metric-info">
                         <span class="metric-label">Promedio Edad / Peso</span>
                         <h3 class="metric-value" id="stat-avg-metrics">0a / 0kg</h3>
@@ -161,11 +155,11 @@
                 </div>
                 <select id="pet-species-filter" class="custom-select">
                     <option value="">Todas las especies</option>
-                    <option value="Perro">Perros 🐶</option>
-                    <option value="Gato">Gatos 🐱</option>
-                    <option value="Conejo">Conejos 🐰</option>
-                    <option value="Ave">Aves 🦜</option>
-                    <option value="Otro">Otros 🐾</option>
+                    <option value="Perro">Perros</option>
+                    <option value="Gato">Gatos</option>
+                    <option value="Conejo">Conejos</option>
+                    <option value="Ave">Aves</option>
+                    <option value="Otro">Otros</option>
                 </select>
             </div>
 
@@ -274,11 +268,11 @@
                             <div class="form-group">
                                 <label for="comb-pet-species">Especie *</label>
                                 <select id="comb-pet-species" required class="custom-select">
-                                    <option value="Perro">Perro 🐶</option>
-                                    <option value="Gato">Gato 🐱</option>
-                                    <option value="Conejo">Conejo 🐰</option>
-                                    <option value="Ave">Ave 🦜</option>
-                                    <option value="Otro">Otro 🐾</option>
+                                    <option value="Perro">Perro</option>
+                                    <option value="Gato">Gato</option>
+                                    <option value="Conejo">Conejo</option>
+                                    <option value="Ave">Ave</option>
+                                    <option value="Otro">Otro</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -415,11 +409,11 @@
                     <div class="form-group">
                         <label for="pet-species">Especie *</label>
                         <select id="pet-species" required class="custom-select">
-                            <option value="Perro">Perro 🐶</option>
-                            <option value="Gato">Gato 🐱</option>
-                            <option value="Conejo">Conejo 🐰</option>
-                            <option value="Ave">Ave 🦜</option>
-                            <option value="Otro">Otro 🐾</option>
+                            <option value="Perro">Perro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Conejo">Conejo</option>
+                            <option value="Ave">Ave</option>
+                            <option value="Otro">Otro</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -754,5 +748,9 @@
     <div id="toast-container" class="toast-container"></div>
 
     <script type="module" src="app.js"></script>
+    <script>
+        // Init Lucide Icons for static HTML
+        lucide.createIcons();
+    </script>
 </body>
 </html>

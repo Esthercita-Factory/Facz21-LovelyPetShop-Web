@@ -40,7 +40,8 @@ export function renderPets() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                🐾 No se encontraron mascotas que coincidan con la búsqueda.
+                <div style="margin-bottom:1rem; opacity:0.5;"><i data-lucide="paw-print" style="width:32px;height:32px;"></i></div>
+                No se encontraron mascotas que coincidan con la búsqueda.
             </div>`;
         return;
     }
@@ -62,9 +63,9 @@ export function renderPets() {
                 </div>
 
                 <div class="details-list">
-                    <div class="detail-item">🎂 ${p.age} años</div>
-                    <div class="detail-item">⚖️ ${p.weight} kg</div>
-                    <div class="detail-item">🆔 Doc: ${p.ownerDocumentNumber}</div>
+                    <div class="detail-item"><i data-lucide="cake" style="width:14px;height:14px;margin-right:4px;"></i> ${p.age} años</div>
+                    <div class="detail-item"><i data-lucide="scale" style="width:14px;height:14px;margin-right:4px;"></i> ${p.weight} kg</div>
+                    <div class="detail-item"><i data-lucide="id-card" style="width:14px;height:14px;margin-right:4px;"></i> Doc: ${p.ownerDocumentNumber}</div>
                 </div>
 
                 <div class="symptoms-box">
@@ -73,9 +74,15 @@ export function renderPets() {
             </div>
 
             <div class="card-actions" style="flex-wrap: wrap;">
-                <button class="btn btn-secondary btn-sm mh-pet-btn w-100" style="margin-bottom: 0.5rem; border-color: var(--primary); color: #818cf8;" data-uuid="${p.uuid}" data-name="${p.name}">📝 Historial Médico</button>
-                <button class="btn btn-secondary btn-sm edit-pet-btn" style="flex:1;" data-uuid="${p.uuid}">✏️ Editar</button>
-                <button class="btn btn-danger btn-sm delete-pet-btn" style="flex:1;" data-uuid="${p.uuid}" data-name="${p.name}">🗑️ Eliminar</button>
+                <button class="btn btn-secondary btn-sm mh-pet-btn w-100" style="margin-bottom: 0.5rem; border-color: var(--primary); color: #818cf8;" data-uuid="${p.uuid}" data-name="${p.name}">
+                    <i data-lucide="file-text" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Historial Médico
+                </button>
+                <button class="btn btn-secondary btn-sm edit-pet-btn" style="flex:1;" data-uuid="${p.uuid}">
+                    <i data-lucide="edit-3" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm delete-pet-btn" style="flex:1;" data-uuid="${p.uuid}" data-name="${p.name}">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Eliminar
+                </button>
             </div>
         `;
         container.appendChild(card);
@@ -90,6 +97,8 @@ export function renderPets() {
     document.querySelectorAll('.mh-pet-btn').forEach(b => {
         b.addEventListener('click', () => openMedicalHistory(b.getAttribute('data-uuid'), b.getAttribute('data-name')));
     });
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 async function deletePet(uuid, name) {

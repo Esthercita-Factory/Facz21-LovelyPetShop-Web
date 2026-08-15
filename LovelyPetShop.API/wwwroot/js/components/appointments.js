@@ -54,7 +54,8 @@ export function renderAppointments() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                📅 No se encontraron citas para los filtros seleccionados.
+                <div style="margin-bottom:1rem; opacity:0.5;"><i data-lucide="calendar-x" style="width:32px;height:32px;"></i></div>
+                No se encontraron citas para los filtros seleccionados.
             </div>`;
         return;
     }
@@ -76,7 +77,9 @@ export function renderAppointments() {
             <div>
                 <div class="card-top-row">
                     <div class="owner-title-block">
-                        <div class="pet-emoji-avatar" style="background: rgba(99, 102, 241, 0.15)">📅</div>
+                        <div class="pet-emoji-avatar" style="background: rgba(99, 102, 241, 0.15)">
+                            <i data-lucide="calendar" style="width:24px;height:24px;"></i>
+                        </div>
                         <div>
                             <h4>${a.serviceType}</h4>
                             <span class="doc-text">${dateString} a las ${timeString}</span>
@@ -86,7 +89,7 @@ export function renderAppointments() {
                 </div>
 
                 <div class="details-list" style="margin-top:1.2rem;">
-                    <div class="detail-item">🐾 ${getPetName(a.petUuid)}</div>
+                    <div class="detail-item"><i data-lucide="paw-print" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> ${getPetName(a.petUuid)}</div>
                 </div>
 
                 <div class="symptoms-box" style="margin-top: 1rem;">
@@ -95,8 +98,12 @@ export function renderAppointments() {
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-secondary btn-sm edit-app-btn" data-uuid="${a.uuid}">✏️ Editar</button>
-                <button class="btn btn-danger btn-sm delete-app-btn" data-uuid="${a.uuid}">🗑️ Cancelar</button>
+                <button class="btn btn-secondary btn-sm edit-app-btn" data-uuid="${a.uuid}">
+                    <i data-lucide="edit-3" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm delete-app-btn" data-uuid="${a.uuid}">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;margin-right:4px;vertical-align:-3px;"></i> Cancelar
+                </button>
             </div>
         `;
         container.appendChild(card);
@@ -108,6 +115,8 @@ export function renderAppointments() {
     document.querySelectorAll('.delete-app-btn').forEach(b => {
         b.addEventListener('click', () => deleteAppointment(b.getAttribute('data-uuid')));
     });
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 async function deleteAppointment(uuid) {
