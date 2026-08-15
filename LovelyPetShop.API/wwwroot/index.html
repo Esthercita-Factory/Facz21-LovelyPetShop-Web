@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-glow glow-1"></div>
-    <div class="background-glow glow-2"></div>
-
-    <header class="app-header">
+    <aside class="app-header">
         <div class="header-container">
             <div class="brand">
                 <div class="brand-logo">
@@ -54,13 +51,16 @@
                     <i data-lucide="plus-circle"></i> Registro Rápido
                 </button>
             </nav>
-
-            <div class="header-status">
-                <span class="status-indicator online"></span>
-                <span class="status-text">API Conectada (.NET 10)</span>
+            
+            <div class="header-status" style="display:flex; align-items:center; gap:0.75rem; margin-top:auto; background: #f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.8rem; width:100%; color:var(--text-main);">
+                <div style="background: #e0e7ff; color: #4338ca; width: 32px; height: 32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.8rem;">AD</div>
+                <div style="font-size:0.8rem; line-height:1.2;">
+                    <strong>Admin</strong><br/>
+                    <span style="color:var(--text-muted); font-size:0.75rem;">admin@lovelypet.co</span>
+                </div>
             </div>
         </div>
-    </header>
+    </aside>
 
     <main class="app-content">
         <!-- TAB 1: DASHBOARD -->

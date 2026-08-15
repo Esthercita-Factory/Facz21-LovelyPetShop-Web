@@ -8,18 +8,18 @@
 
 .metric-card {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 1.4rem;
     display: flex;
     align-items: center;
     gap: 1.2rem;
+    box-shadow: var(--shadow-card);
     transition: var(--transition);
 }
 .metric-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
     box-shadow: var(--shadow-glow);
 }
 .metric-icon {
@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: #f1f5f9;
 }
 .metric-label {
     font-size: 0.82rem;
@@ -74,10 +74,10 @@
 
 .glass-card {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
+    box-shadow: var(--shadow-card);
 }
 
 .card-header {
@@ -114,7 +114,7 @@
 .species-bar-track {
     height: 10px;
     border-radius: 99px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #f1f5f9;
     overflow: hidden;
 }
 .species-bar-fill {
@@ -134,13 +134,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     transition: var(--transition);
 }
 .recent-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: #f8fafc;
 }
 .recent-item-info {
     display: flex;
@@ -167,20 +168,20 @@
 
 .pet-card, .owner-card {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 1.3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: var(--shadow-card);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
 }
 .pet-card:hover, .owner-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
     box-shadow: var(--shadow-glow);
 }
 
@@ -224,11 +225,11 @@
     text-transform: uppercase;
     letter-spacing: 0.03em;
 }
-.badge-perro { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
-.badge-gato { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
-.badge-conejo { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
-.badge-ave { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
-.badge-otro { background: rgba(156, 163, 175, 0.2); color: #d1d5db; border: 1px solid rgba(156, 163, 175, 0.3); }
+.badge-perro { background: #e0e7ff; color: #4338ca; }
+.badge-gato { background: #fce7f3; color: #be185d; }
+.badge-conejo { background: #fef3c7; color: #b45309; }
+.badge-ave { background: #cffafe; color: #0f766e; }
+.badge-otro { background: #f1f5f9; color: #475569; }
 
 .details-list {
     display: flex;
@@ -242,21 +243,22 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.04);
+    background: #f1f5f9;
     padding: 0.3rem 0.6rem;
     border-radius: var(--radius-sm);
+    color: var(--text-main);
 }
 
 .symptoms-box {
-    background: rgba(0, 0, 0, 0.25);
-    border-left: 3px solid var(--accent-cyan);
+    background: #f8fafc;
+    border-left: 3px solid var(--primary);
     padding: 0.6rem 0.8rem;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     font-size: 0.82rem;
-    color: #e5e7eb;
+    color: var(--text-main);
     margin-bottom: 1rem;
 }
-.symptoms-box strong { color: var(--accent-cyan); }
+.symptoms-box strong { color: var(--text-muted); }
 
 .card-actions {
     display: flex;
