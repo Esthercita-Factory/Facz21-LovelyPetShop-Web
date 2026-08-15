@@ -21,7 +21,7 @@
 }
 
 .modal-card {
-    background: #ffffff;
+    background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     width: 90%;
@@ -76,7 +76,7 @@
 }
 
 .toast {
-    background: #ffffff;
+    background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     padding: 0.85rem 1.2rem;
@@ -85,7 +85,7 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-glow);
     animation: toastIn 0.3s ease;
 }
 .toast-success { border-left: 4px solid var(--secondary); }

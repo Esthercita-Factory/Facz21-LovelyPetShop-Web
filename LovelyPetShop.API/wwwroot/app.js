@@ -6,7 +6,7 @@ import { loadEmployees, setupEmployeesEvents } from './js/components/employees.j
 import { loadProducts, setupProductsEvents } from './js/components/products.js';
 import { setupMedicalRecordsEvents } from './js/components/medical_records.js';
 import { API_BASE, apiFetch } from './js/services/api.js';
-import { showToast } from './js/components/ui.js';
+import { showToast, setupThemeToggle } from './js/components/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // UI Elements
@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initialize all events
+    setupThemeToggle();
     setupDashboardEvents();
     setupPetsEvents();
     setupOwnersEvents();

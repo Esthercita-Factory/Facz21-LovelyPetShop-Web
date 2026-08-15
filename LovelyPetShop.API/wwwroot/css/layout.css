@@ -11,7 +11,7 @@ body {
 .app-header {
     width: 260px;
     height: 100vh;
-    background: #ffffff;
+    background: var(--bg-card);
     border-right: 1px solid var(--border-color);
     flex-shrink: 0;
     overflow-y: auto;
@@ -104,12 +104,12 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
     padding: 0.8rem 1rem;
     border-radius: var(--radius-sm);
     font-size: 0.8rem;
-    color: #166534;
+    color: var(--text-main);
 }
 .status-indicator {
     width: 8px;

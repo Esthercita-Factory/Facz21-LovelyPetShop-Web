@@ -37,3 +37,33 @@ export function openModal(modal) {
 export function closeModal(modal) {
     if (modal) modal.classList.remove('active');
 }
+
+export function setupThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
+    
+    if (!btn) return;
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        icon.setAttribute('data-lucide', 'sun');
+        text.textContent = 'Modo Claro';
+    }
+
+    btn.addEventListener('click', () => {
+        const currentlyDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (currentlyDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            icon.setAttribute('data-lucide', 'moon');
+            text.textContent = 'Modo Oscuro';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            icon.setAttribute('data-lucide', 'sun');
+            text.textContent = 'Modo Claro';
+        }
+        if (window.lucide) window.lucide.createIcons();
+    });
+}

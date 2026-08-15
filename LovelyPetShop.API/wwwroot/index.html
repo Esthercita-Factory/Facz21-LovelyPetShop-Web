@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
     <aside class="app-header">
@@ -51,9 +56,12 @@
                     <i data-lucide="plus-circle"></i> Registro Rápido
                 </button>
             </nav>
+            <button id="theme-toggle" class="nav-btn" style="margin-top:auto; margin-bottom: 0.5rem; justify-content:flex-start; font-weight:600;">
+                <i data-lucide="moon" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
+            </button>
             
-            <div class="header-status" style="display:flex; align-items:center; gap:0.75rem; margin-top:auto; background: #f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.8rem; width:100%; color:var(--text-main);">
-                <div style="background: #e0e7ff; color: #4338ca; width: 32px; height: 32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.8rem;">AD</div>
+            <div class="header-status" style="margin-top: 0;">
+                <div style="background: var(--primary-light); color: var(--primary); width: 32px; height: 32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.8rem;">AD</div>
                 <div style="font-size:0.8rem; line-height:1.2;">
                     <strong>Admin</strong><br/>
                     <span style="color:var(--text-muted); font-size:0.75rem;">admin@lovelypet.co</span>
