@@ -156,3 +156,73 @@ body {
     font-size: 0.92rem;
     margin-top: 0.2rem;
 }
+
+/* Floating Theme Switch */
+.floating-theme-switch {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--bg-card);
+    padding: 0.6rem 1rem;
+    border-radius: 99px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-glow);
+    z-index: 1000;
+}
+
+.floating-theme-switch i {
+    color: var(--text-muted);
+    width: 20px;
+    height: 20px;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.theme-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--border-color);
+    transition: .3s;
+    border-radius: 24px;
+}
+
+.theme-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.theme-switch input:checked + .slider {
+    background-color: var(--primary);
+}
+
+.theme-switch input:checked + .slider:before {
+    transform: translateX(22px);
+}

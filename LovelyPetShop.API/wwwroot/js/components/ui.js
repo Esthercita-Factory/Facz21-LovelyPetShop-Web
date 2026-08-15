@@ -39,31 +39,19 @@ export function closeModal(modal) {
 }
 
 export function setupThemeToggle() {
-    const btn = document.getElementById('theme-toggle');
-    const icon = document.getElementById('theme-icon');
-    const text = document.getElementById('theme-text');
-    
-    if (!btn) return;
+    const checkbox = document.getElementById('theme-toggle');
+    if (!checkbox) return;
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-        icon.setAttribute('data-lucide', 'sun');
-        text.textContent = 'Modo Claro';
-    }
+    checkbox.checked = isDark;
 
-    btn.addEventListener('click', () => {
-        const currentlyDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (currentlyDark) {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            icon.setAttribute('data-lucide', 'moon');
-            text.textContent = 'Modo Oscuro';
-        } else {
+    checkbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            icon.setAttribute('data-lucide', 'sun');
-            text.textContent = 'Modo Claro';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
         }
-        if (window.lucide) window.lucide.createIcons();
     });
 }

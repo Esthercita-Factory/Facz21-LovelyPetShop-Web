@@ -56,11 +56,7 @@
                     <i data-lucide="plus-circle"></i> Registro Rápido
                 </button>
             </nav>
-            <button id="theme-toggle" class="nav-btn" style="margin-top:auto; margin-bottom: 0.5rem; justify-content:flex-start; font-weight:600;">
-                <i data-lucide="moon" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
-            </button>
-            
-            <div class="header-status" style="margin-top: 0;">
+            <div class="header-status" style="margin-top: auto;">
                 <div style="background: var(--primary-light); color: var(--primary); width: 32px; height: 32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.8rem;">AD</div>
                 <div style="font-size:0.8rem; line-height:1.2;">
                     <strong>Admin</strong><br/>
@@ -754,6 +750,18 @@
 
     <!-- TOAST CONTAINER -->
     <div id="toast-container" class="toast-container"></div>
+
+    <!-- Floating Theme Switch -->
+    <div class="floating-theme-switch">
+        <i data-lucide="sun"></i>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle">
+                <div class="slider round"></div>
+            </label>
+        </div>
+        <i data-lucide="moon"></i>
+    </div>
 
     <script type="module" src="app.js"></script>
     <script>
