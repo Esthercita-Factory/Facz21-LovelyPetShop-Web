@@ -224,6 +224,10 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 .badge-perro { background: #e0e7ff; color: #4338ca; }
 .badge-gato { background: #fce7f3; color: #be185d; }
