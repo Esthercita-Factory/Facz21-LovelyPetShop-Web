@@ -12,10 +12,10 @@ export async function loadDashboard() {
         const speciesKeys = Object.keys(stats.speciesDistribution);
         if (speciesKeys.length > 0) {
             const topSpecies = speciesKeys.reduce((a, b) => stats.speciesDistribution[a] > stats.speciesDistribution[b] ? a : b);
-            document.getElementById('stat-top-species').textContent = `${getSpeciesEmoji(topSpecies)} ${topSpecies}`;
+            document.getElementById('stat-top-species').innerHTML = `${getSpeciesEmoji(topSpecies)} <span style="vertical-align:middle;">${topSpecies}</span>`;
             document.getElementById('stat-top-species-count').textContent = `${stats.speciesDistribution[topSpecies]} paciente(s)`;
         } else {
-            document.getElementById('stat-top-species').textContent = '-';
+            document.getElementById('stat-top-species').innerHTML = '-';
             document.getElementById('stat-top-species-count').textContent = '';
         }
 
@@ -66,6 +66,7 @@ export async function loadDashboard() {
                 recentContainer.innerHTML = '<div style="color: var(--text-muted); padding: 1rem;">No hay registros recientes.</div>';
             }
         }
+        if (window.lucide) window.lucide.createIcons();
     } catch (e) {
         console.error('Error loading dashboard:', e);
     }
