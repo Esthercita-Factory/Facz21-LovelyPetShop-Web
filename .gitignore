@@ -27,3 +27,12 @@ docker-compose.override.yml
 .DS_Store?
 ehthumbs.db
 Thumbs.db
+
+## Node & Frontend
+**/node_modules/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+frontend/dist/
+*.tsbuildinfo

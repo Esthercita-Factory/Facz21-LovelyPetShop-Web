@@ -1,0 +1,50 @@
+[
+  {
+    "uuid": "6cee61dd-3b66-4d9c-acbf-a96805d4bd13",
+    "username": "admin",
+    "email": "admin@lovelypet.com",
+    "password_hash": "icPf3xyHuVNVqjORpuET2w==:wdxH\u002BTtW2ntTmS8Uit1WL1dtgu0kluWlWBELrBz57v8=",
+    "full_name": "Administrador del Sistema",
+    "role": "Admin",
+    "owner_id": null,
+    "employee_id": null,
+    "is_active": true,
+    "created_at": "2026-08-27T19:19:37.1151159Z"
+  },
+  {
+    "uuid": "eca7b449-320f-46bf-8a53-fa36dd46c3de",
+    "username": "vet",
+    "email": "valeria.vet@lovelypet.com",
+    "password_hash": "XM6kRtblWONz2P7yLM35CQ==:lhsMByTmcthc1wy6G/KcvWYnL\u002BUc3NOrsqH3LGaaBcA=",
+    "full_name": "Dra. Valeria Ramos",
+    "role": "Veterinario",
+    "owner_id": null,
+    "employee_id": "458c51fb-a7ae-4b0f-99b5-a157ddf20c77",
+    "is_active": true,
+    "created_at": "2026-08-27T19:19:37.152894Z"
+  },
+  {
+    "uuid": "6803c6c9-a86b-413f-84de-ff4de849a28d",
+    "username": "recepcion",
+    "email": "recepcion@lovelypet.com",
+    "password_hash": "IkEMbxq0kPvD5V81T\u002BsHsg==:6To48IrV1PIl2xi8a0FO\u002BRI6wuBTRjBZtk4zbIEK248=",
+    "full_name": "Carlos Mendoza (Recepci\u00F3n)",
+    "role": "Recepcion",
+    "owner_id": null,
+    "employee_id": "c64a82f4-66d0-47ce-b59b-9151d4909ef5",
+    "is_active": true,
+    "created_at": "2026-08-27T19:19:37.1782133Z"
+  },
+  {
+    "uuid": "15615533-fb25-4a2e-bb13-019ef0e0ac06",
+    "username": "cliente",
+    "email": "afcz@gmail.com",
+    "password_hash": "5D8pWMTVm2HB/\u002B3SOxvB\u002BA==:90kdZymxm4KIb61nMZls\u002B5ZVfj7vLC4BdBrtUViWzGw=",
+    "full_name": "Andrew Cortez",
+    "role": "Cliente",
+    "owner_id": "77aabf77-672a-4c5d-923a-e21e9e2a6d05",
+    "employee_id": null,
+    "is_active": true,
+    "created_at": "2026-08-27T19:19:37.2008483Z"
+  }
+]
