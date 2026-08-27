@@ -34,7 +34,16 @@ public class FakeProductRepository : IProductRepository
         return Task.CompletedTask;
     }
     public Task<Product?> GetBySkuAsync(string sku) => Task.FromResult(_products.FirstOrDefault(p => p.SKU == sku));
-    public Task DeleteByUuidAsync(string uuid) => DeleteAsync(uuid);
+    public Task<bool> DeleteByUuidAsync(string uuid)
+    {
+        var existing = _products.FirstOrDefault(p => p.Uuid == uuid);
+        if (existing != null)
+        {
+            _products.Remove(existing);
+            return Task.FromResult(true);
+        }
+        return Task.FromResult(false);
+    }
 }
 
 public class FakeEmployeeRepository : IEmployeeRepository
@@ -43,7 +52,6 @@ public class FakeEmployeeRepository : IEmployeeRepository
 
     public Task<IEnumerable<Employee>> GetAllAsync() => Task.FromResult<IEnumerable<Employee>>(_employees);
     public Task<Employee?> GetByUuidAsync(string uuid) => Task.FromResult(_employees.FirstOrDefault(e => e.Uuid == uuid));
-    public Task<Employee?> GetByDocumentNumberAsync(string documentNumber) => Task.FromResult(_employees.FirstOrDefault(e => e.DocumentNumber == documentNumber));
     public Task AddAsync(Employee employee)
     {
         employee.Uuid = Guid.NewGuid().ToString();
@@ -52,7 +60,7 @@ public class FakeEmployeeRepository : IEmployeeRepository
     }
     public Task UpdateAsync(Employee employee)
     {
-        var existing = _employees.FirstOrDefault(e => e.DocumentNumber == employee.DocumentNumber);
+        var existing = _employees.FirstOrDefault(e => e.Uuid == employee.Uuid);
         if (existing != null)
         {
             _employees.Remove(existing);
@@ -60,17 +68,15 @@ public class FakeEmployeeRepository : IEmployeeRepository
         }
         return Task.CompletedTask;
     }
-    public Task DeleteAsync(string documentNumber)
-    {
-        var existing = _employees.FirstOrDefault(e => e.DocumentNumber == documentNumber);
-        if (existing != null) _employees.Remove(existing);
-        return Task.CompletedTask;
-    }
-    public Task DeleteByUuidAsync(string uuid)
+    public Task<bool> DeleteByUuidAsync(string uuid)
     {
         var existing = _employees.FirstOrDefault(e => e.Uuid == uuid);
-        if (existing != null) _employees.Remove(existing);
-        return Task.CompletedTask;
+        if (existing != null)
+        {
+            _employees.Remove(existing);
+            return Task.FromResult(true);
+        }
+        return Task.FromResult(false);
     }
 }
 
@@ -85,7 +91,7 @@ public class NewManagementServiceTests
         var product = new Product { Name = "Dog Food", SKU = "DF-01", Price = 20, StockQuantity = 10 };
 
         // Act
-        var result = await service.AddAsync(product);
+        var result = await service.CreateProductAsync(product);
 
         // Assert
         Assert.NotNull(result);
@@ -100,10 +106,10 @@ public class NewManagementServiceTests
         // Arrange
         var repo = new FakeEmployeeRepository();
         var service = new EmployeeService(repo);
-        var employee = new Employee { Name = "John Doe", DocumentNumber = "123", DocumentType = "CC", Role = "Vet", Phone = "555" };
+        var employee = new Employee { Name = "John Doe", Role = "Veterinario", Phone = "555-1234", Email = "john@example.com", Schedule = "L-V 8am-5pm" };
 
         // Act
-        var result = await service.AddAsync(employee);
+        var result = await service.CreateEmployeeAsync(employee);
 
         // Assert
         Assert.NotNull(result);

@@ -14,10 +14,19 @@ public class Product
     public string SKU { get; set; } = string.Empty;
 
     [JsonPropertyName("category")]
-    public string Category { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty; // Alimentos, Medicamentos/Insumos, Accesorios, Higiene, Juguetes
+
+    [JsonPropertyName("description")]
+    public string Description { get; set; } = string.Empty;
+
+    [JsonPropertyName("image_url")]
+    public string ImageUrl { get; set; } = string.Empty;
 
     [JsonPropertyName("price")]
-    public decimal Price { get; set; }
+    public decimal Price { get; set; } // Precio de venta final al cliente
+
+    [JsonPropertyName("cost_price")]
+    public decimal CostPrice { get; set; } // Costo interno para administración
 
     [JsonPropertyName("stock_quantity")]
     public int StockQuantity { get; set; }
@@ -25,12 +34,15 @@ public class Product
     [JsonPropertyName("supplier")]
     public string Supplier { get; set; } = string.Empty;
 
+    [JsonPropertyName("is_commercial")]
+    public bool IsCommercial { get; set; } = true; // True: visible en tienda de clientes; False: insumo médico interno
+
     [JsonPropertyName("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public Product() { }
 
-    public Product(string name, string sku, string category, decimal price, int stockQuantity, string supplier)
+    public Product(string name, string sku, string category, decimal price, int stockQuantity, string supplier, string description = "", string imageUrl = "", decimal costPrice = 0, bool isCommercial = true)
     {
         Uuid = Guid.NewGuid().ToString();
         Name = name;
@@ -39,6 +51,10 @@ public class Product
         Price = price;
         StockQuantity = stockQuantity;
         Supplier = supplier;
-        CreatedAt = DateTime.Now;
+        Description = description;
+        ImageUrl = imageUrl;
+        CostPrice = costPrice;
+        IsCommercial = isCommercial;
+        CreatedAt = DateTime.UtcNow;
     }
 }

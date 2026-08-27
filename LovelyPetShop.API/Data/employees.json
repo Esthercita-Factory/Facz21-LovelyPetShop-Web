@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "uuid": "458c51fb-a7ae-4b0f-99b5-a157ddf20c77",
+    "name": "Dra. Valeria Ramos",
+    "role": "Veterinario",
+    "phone": "3123456789",
+    "email": "valeria.vet@lovelypet.com",
+    "schedule": "L-V 8am-5pm",
+    "created_at": "2026-08-27T14:19:37.0756277-05:00"
+  },
+  {
+    "uuid": "c64a82f4-66d0-47ce-b59b-9151d4909ef5",
+    "name": "Carlos Mendoza",
+    "role": "Recepcion",
+    "phone": "3159876543",
+    "email": "recepcion@lovelypet.com",
+    "schedule": "L-S 7am-4pm",
+    "created_at": "2026-08-27T14:19:37.0847341-05:00"
+  }
+]

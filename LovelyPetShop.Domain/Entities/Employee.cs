@@ -11,7 +11,10 @@ public class Employee
     public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("role")]
-    public string Role { get; set; } = string.Empty; // Veterinario, Peluquero, etc.
+    public string Role { get; set; } = string.Empty; // Veterinario, Peluquero, Recepción, etc.
+
+    [JsonPropertyName("specialty")]
+    public string Specialty { get; set; } = string.Empty;
 
     [JsonPropertyName("phone")]
     public string Phone { get; set; } = string.Empty;
@@ -20,14 +23,17 @@ public class Employee
     public string Email { get; set; } = string.Empty;
 
     [JsonPropertyName("schedule")]
-    public string Schedule { get; set; } = string.Empty; // Ej: L-V 8am-5pm
+    public string Schedule { get; set; } = "L-V 8am-5pm";
+
+    [JsonPropertyName("is_active")]
+    public bool IsActive { get; set; } = true;
 
     [JsonPropertyName("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public Employee() { }
 
-    public Employee(string name, string role, string phone, string email, string schedule)
+    public Employee(string name, string role, string phone, string email, string schedule = "L-V 8am-5pm", string specialty = "")
     {
         Uuid = Guid.NewGuid().ToString();
         Name = name;
@@ -35,6 +41,8 @@ public class Employee
         Phone = phone;
         Email = email;
         Schedule = schedule;
-        CreatedAt = DateTime.Now;
+        Specialty = specialty;
+        IsActive = true;
+        CreatedAt = DateTime.UtcNow;
     }
 }

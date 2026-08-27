@@ -24,11 +24,16 @@ public class OwnersController : ControllerBase
         return Ok(dtos);
     }
 
-    [HttpGet("{docNumber}")]
-    public async Task<ActionResult<OwnerDto>> GetByDocument(string docNumber)
+    [HttpGet("{docOrUuid}")]
+    public async Task<ActionResult<OwnerDto>> GetByDocumentOrUuid(string docOrUuid)
     {
-        var owner = await _ownerService.GetOwnerByDocumentAsync(docNumber);
-        if (owner == null) return NotFound(new { message = $"Propietario con documento '{docNumber}' no fue encontrado." });
+        var owner = await _ownerService.GetOwnerByDocumentAsync(docOrUuid);
+        if (owner == null)
+        {
+            var all = await _ownerService.GetAllOwnersAsync();
+            owner = all.FirstOrDefault(o => string.Equals(o.Uuid, docOrUuid, StringComparison.OrdinalIgnoreCase));
+        }
+        if (owner == null) return NotFound(new { message = $"Propietario '{docOrUuid}' no fue encontrado." });
         return Ok(MapOwnerToDto(owner));
     }
 
@@ -39,25 +44,43 @@ public class OwnersController : ControllerBase
         if (!result.Success) return BadRequest(new { message = result.Message });
 
         var created = await _ownerService.GetOwnerByDocumentAsync(dto.DocumentNumber);
-        return CreatedAtAction(nameof(GetByDocument), new { docNumber = dto.DocumentNumber }, created != null ? MapOwnerToDto(created) : null);
+        return CreatedAtAction(nameof(GetByDocumentOrUuid), new { docOrUuid = dto.DocumentNumber }, created != null ? MapOwnerToDto(created) : null);
     }
 
-    [HttpPut("{docNumber}")]
-    public async Task<ActionResult> Update(string docNumber, [FromBody] UpdateOwnerDto dto)
+    [HttpPut("{docOrUuid}")]
+    public async Task<ActionResult> Update(string docOrUuid, [FromBody] UpdateOwnerDto dto)
     {
-        var result = await _ownerService.UpdateOwnerAsync(docNumber, dto.NewDocumentType, dto.NewDocumentNumber, dto.Name, dto.Phone, dto.Email, dto.Address);
+        var targetDoc = docOrUuid;
+        var existing = await _ownerService.GetOwnerByDocumentAsync(docOrUuid);
+        if (existing == null)
+        {
+            var all = await _ownerService.GetAllOwnersAsync();
+            var byUuid = all.FirstOrDefault(o => string.Equals(o.Uuid, docOrUuid, StringComparison.OrdinalIgnoreCase));
+            if (byUuid != null) targetDoc = byUuid.DocumentNumber;
+        }
+
+        var result = await _ownerService.UpdateOwnerAsync(targetDoc, dto.NewDocumentType, dto.NewDocumentNumber, dto.Name, dto.Phone, dto.Email, dto.Address);
         if (!result.Success) return BadRequest(new { message = result.Message });
 
-        var updatedDoc = dto.NewDocumentNumber ?? docNumber;
+        var updatedDoc = dto.NewDocumentNumber ?? targetDoc;
         var updated = await _ownerService.GetOwnerByDocumentAsync(updatedDoc);
         return Ok(new { message = result.Message, owner = updated != null ? MapOwnerToDto(updated) : null });
     }
 
-    [HttpDelete("{docNumber}")]
-    public async Task<ActionResult> Delete(string docNumber)
+    [HttpDelete("{docOrUuid}")]
+    public async Task<ActionResult> Delete(string docOrUuid)
     {
-        var result = await _ownerService.DeleteOwnerAsync(docNumber);
-        if (!result.Success) return BadRequest(new { message = result.Message });
+        var result = await _ownerService.DeleteOwnerAsync(docOrUuid);
+        if (!result.Success)
+        {
+            var all = await _ownerService.GetAllOwnersAsync();
+            var byUuid = all.FirstOrDefault(o => string.Equals(o.Uuid, docOrUuid, StringComparison.OrdinalIgnoreCase));
+            if (byUuid != null)
+            {
+                result = await _ownerService.DeleteOwnerAsync(byUuid.DocumentNumber);
+            }
+        }
+        if (!result.Success) return NotFound(new { message = result.Message });
         return Ok(new { message = result.Message });
     }
 
@@ -72,7 +95,7 @@ public class OwnersController : ControllerBase
             o.Email,
             o.Address,
             o.CreatedAt,
-            o.Pets.Select(MapPetToDto).ToList()
+            (o.Pets ?? new List<Pet>()).Select(MapPetToDto).ToList()
         );
     }
 

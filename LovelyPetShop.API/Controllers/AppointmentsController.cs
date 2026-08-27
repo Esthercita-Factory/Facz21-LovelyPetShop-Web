@@ -26,7 +26,7 @@ public class AppointmentsController : ControllerBase
     public async Task<IActionResult> Get(string uuid)
     {
         var result = await _service.GetAppointmentByIdAsync(uuid);
-        if (result == null) return NotFound();
+        if (result == null) return NotFound(new { message = "Cita no encontrada." });
         return Ok(result);
     }
 
@@ -61,7 +61,7 @@ public class AppointmentsController : ControllerBase
         }
         catch (KeyNotFoundException)
         {
-            return NotFound();
+            return NotFound(new { message = "Cita no encontrada." });
         }
     }
 
@@ -69,7 +69,7 @@ public class AppointmentsController : ControllerBase
     public async Task<IActionResult> Delete(string uuid)
     {
         var deleted = await _service.DeleteAppointmentAsync(uuid);
-        if (!deleted) return NotFound();
+        if (!deleted) return NotFound(new { message = "Cita no encontrada." });
         return NoContent();
     }
 }

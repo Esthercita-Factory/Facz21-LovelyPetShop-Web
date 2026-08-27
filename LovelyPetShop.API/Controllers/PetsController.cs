@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using LovelyPetShop.Domain.Interfaces;
 using LovelyPetShop.Domain.Entities;
@@ -10,10 +11,12 @@ namespace LovelyPetShop.API.Controllers;
 public class PetsController : ControllerBase
 {
     private readonly IPetService _petService;
+    private readonly IOwnerService _ownerService;
 
-    public PetsController(IPetService petService)
+    public PetsController(IPetService petService, IOwnerService ownerService)
     {
         _petService = petService;
+        _ownerService = ownerService;
     }
 
     [HttpGet]
@@ -23,19 +26,52 @@ public class PetsController : ControllerBase
         return Ok(pets.Select(MapPetToDto));
     }
 
+    [HttpGet("my-pets")]
+    public async Task<ActionResult<IEnumerable<PetDto>>> GetMyPets([FromQuery] string? ownerUuid)
+    {
+        var targetOwner = ownerUuid ?? User.FindFirst("owner_id")?.Value;
+
+        if (string.IsNullOrEmpty(targetOwner))
+        {
+            return Ok(Enumerable.Empty<PetDto>());
+        }
+
+        var allPets = await _petService.GetAllPetsAsync();
+        var myPets = allPets.Where(p =>
+            string.Equals(p.OwnerUuid, targetOwner, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(p.OwnerDocumentNumber, targetOwner, StringComparison.OrdinalIgnoreCase)
+        );
+        return Ok(myPets.Select(MapPetToDto));
+    }
+
+    [HttpGet("by-owner/{docOrUuid}")]
+    public async Task<ActionResult<IEnumerable<PetDto>>> GetByOwner(string docOrUuid)
+    {
+        var allPets = await _petService.GetAllPetsAsync();
+        var myPets = allPets.Where(p =>
+            string.Equals(p.OwnerDocumentNumber, docOrUuid, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(p.OwnerUuid, docOrUuid, StringComparison.OrdinalIgnoreCase)
+        );
+        return Ok(myPets.Select(MapPetToDto));
+    }
+
+    [HttpGet("by-owner-uuid/{ownerUuid}")]
+    public async Task<ActionResult<IEnumerable<PetDto>>> GetByOwnerUuid(string ownerUuid)
+    {
+        var allPets = await _petService.GetAllPetsAsync();
+        var myPets = allPets.Where(p =>
+            string.Equals(p.OwnerUuid, ownerUuid, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(p.OwnerDocumentNumber, ownerUuid, StringComparison.OrdinalIgnoreCase)
+        );
+        return Ok(myPets.Select(MapPetToDto));
+    }
+
     [HttpGet("{uuid}")]
     public async Task<ActionResult<PetDto>> GetByUuid(string uuid)
     {
         var pet = await _petService.GetPetByUuidAsync(uuid);
         if (pet == null) return NotFound(new { message = $"Mascota con UUID '{uuid}' no fue encontrada." });
         return Ok(MapPetToDto(pet));
-    }
-
-    [HttpGet("by-owner/{docNumber}")]
-    public async Task<ActionResult<IEnumerable<PetDto>>> GetByOwner(string docNumber)
-    {
-        var pets = await _petService.GetPetsByOwnerDocumentAsync(docNumber);
-        return Ok(pets.Select(MapPetToDto));
     }
 
     [HttpPost]
@@ -75,7 +111,7 @@ public class PetsController : ControllerBase
     public async Task<ActionResult> Delete(string uuid)
     {
         var result = await _petService.DeletePetAsync(uuid);
-        if (!result.Success) return BadRequest(new { message = result.Message });
+        if (!result.Success) return NotFound(new { message = result.Message });
         return Ok(new { message = result.Message });
     }
 

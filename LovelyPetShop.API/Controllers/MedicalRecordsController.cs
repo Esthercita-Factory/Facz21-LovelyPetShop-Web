@@ -6,6 +6,7 @@ namespace LovelyPetShop.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Route("api/medical-records")]
 public class MedicalRecordsController : ControllerBase
 {
     private readonly IMedicalRecordService _service;
@@ -26,7 +27,7 @@ public class MedicalRecordsController : ControllerBase
     public async Task<IActionResult> Get(string uuid)
     {
         var result = await _service.GetRecordByIdAsync(uuid);
-        if (result == null) return NotFound();
+        if (result == null) return NotFound(new { message = "Registro médico no encontrado." });
         return Ok(result);
     }
 
@@ -61,7 +62,7 @@ public class MedicalRecordsController : ControllerBase
         }
         catch (KeyNotFoundException)
         {
-            return NotFound();
+            return NotFound(new { message = "Registro médico no encontrado." });
         }
     }
 
@@ -69,7 +70,7 @@ public class MedicalRecordsController : ControllerBase
     public async Task<IActionResult> Delete(string uuid)
     {
         var deleted = await _service.DeleteRecordAsync(uuid);
-        if (!deleted) return NotFound();
+        if (!deleted) return NotFound(new { message = "Registro médico no encontrado." });
         return NoContent();
     }
 }

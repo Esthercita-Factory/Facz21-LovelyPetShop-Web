@@ -22,11 +22,16 @@ public class EmployeesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{uuid}")]
-    public async Task<IActionResult> Get(string uuid)
+    [HttpGet("{idOrEmail}")]
+    public async Task<IActionResult> Get(string idOrEmail)
     {
-        var result = await _service.GetEmployeeByIdAsync(uuid);
-        if (result == null) return NotFound();
+        var result = await _service.GetEmployeeByIdAsync(idOrEmail);
+        if (result == null)
+        {
+            var all = await _service.GetAllEmployeesAsync();
+            result = all.FirstOrDefault(e => string.Equals(e.Email, idOrEmail, StringComparison.OrdinalIgnoreCase));
+        }
+        if (result == null) return NotFound(new { message = "Empleado no encontrado." });
         return Ok(result);
     }
 
@@ -36,7 +41,7 @@ public class EmployeesController : ControllerBase
         try
         {
             var created = await _service.CreateEmployeeAsync(employee);
-            return CreatedAtAction(nameof(Get), new { uuid = created.Uuid }, created);
+            return CreatedAtAction(nameof(Get), new { idOrEmail = created.Uuid }, created);
         }
         catch (ArgumentException ex)
         {
@@ -54,7 +59,7 @@ public class EmployeesController : ControllerBase
         }
         catch (KeyNotFoundException)
         {
-            return NotFound();
+            return NotFound(new { message = "Empleado no encontrado." });
         }
     }
 
@@ -62,7 +67,7 @@ public class EmployeesController : ControllerBase
     public async Task<IActionResult> Delete(string uuid)
     {
         var deleted = await _service.DeleteEmployeeAsync(uuid);
-        if (!deleted) return NotFound();
+        if (!deleted) return NotFound(new { message = "Empleado no encontrado." });
         return NoContent();
     }
 }

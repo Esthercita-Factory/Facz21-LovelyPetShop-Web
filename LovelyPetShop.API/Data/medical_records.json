@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "uuid": "mr-baki-01",
+    "pet_uuid": "08858a38-ee38-401a-b922-840e81df8568",
+    "date": "2026-07-15T10:30:00-05:00",
+    "weight": 14.8,
+    "diagnosis": "Rinitis alérgica estacional",
+    "treatment": "Antihistamínico 10mg diario por 5 días + Lavado nasal con suero fisiológico.",
+    "next_vaccine_date": "2026-10-15T00:00:00-05:00",
+    "created_at": "2026-07-15T10:30:00-05:00"
+  },
+  {
+    "uuid": "mr-baki-02",
+    "pet_uuid": "08858a38-ee38-401a-b922-840e81df8568",
+    "date": "2026-08-04T15:22:40-05:00",
+    "weight": 15.0,
+    "diagnosis": "Control de secreción nasal / Excelente recuperación",
+    "treatment": "Continuar con dieta alta en nutrientes y probióticos.",
+    "next_vaccine_date": "2026-11-20T00:00:00-05:00",
+    "created_at": "2026-08-04T15:22:40-05:00"
+  },
+  {
+    "uuid": "mr-omi-01",
+    "pet_uuid": "2104c594-e93a-4669-9c7f-338db1e76fe0",
+    "date": "2026-08-04T15:32:35-05:00",
+    "weight": 35.0,
+    "diagnosis": "Traqueobronquitis infecciosa canina (Tos de las perreras)",
+    "treatment": "Doxiciclina 100mg cada 12h x 7 días + Jarabe antitusígeno.",
+    "next_vaccine_date": "2026-09-01T00:00:00-05:00",
+    "created_at": "2026-08-04T15:32:35-05:00"
+  },
+  {
+    "uuid": "mr-kitty-01",
+    "pet_uuid": "c1d2e3f4-a5b6-4789-8012-34567890abcd",
+    "date": "2026-06-10T11:00:00-05:00",
+    "weight": 3.8,
+    "diagnosis": "Vacunación Triple Felina y control de peso",
+    "treatment": "Aplicación de vacuna Triple Felina + Pipeta antipulgas Revolution.",
+    "next_vaccine_date": "2027-06-10T00:00:00-05:00",
+    "created_at": "2026-06-10T11:00:00-05:00"
+  },
+  {
+    "uuid": "mr-kitty-02",
+    "pet_uuid": "c1d2e3f4-a5b6-4789-8012-34567890abcd",
+    "date": "2026-08-04T16:05:00-05:00",
+    "weight": 4.0,
+    "diagnosis": "Gastroenteritis leve por bolas de pelo",
+    "treatment": "Pasta de malta 2 veces por semana + Alimento húmedo digestivo.",
+    "next_vaccine_date": null,
+    "created_at": "2026-08-04T16:05:00-05:00"
+  },
+  {
+    "uuid": "mr-rocky-01",
+    "pet_uuid": "d5e6f7a8-b9c0-4123-9456-7890abcdef12",
+    "date": "2026-08-04T16:20:00-05:00",
+    "weight": 30.0,
+    "diagnosis": "Chequeo médico anual / Paciente en estado óptimo",
+    "treatment": "Vacunación Antirrábica + Séxtuple aplicada satisfactoriamente.",
+    "next_vaccine_date": "2027-08-04T00:00:00-05:00",
+    "created_at": "2026-08-04T16:20:00-05:00"
+  },
+  {
+    "uuid": "mr-tambor-01",
+    "pet_uuid": "e6f7a8b9-c0d1-4234-a567-890abcdef123",
+    "date": "2026-08-04T16:30:00-05:00",
+    "weight": 2.0,
+    "diagnosis": "Revisión dental y control de incisivos",
+    "treatment": "Desgaste dental preventivo + Aumento de heno Timothy en dieta diaria.",
+    "next_vaccine_date": null,
+    "created_at": "2026-08-04T16:30:00-05:00"
+  },
+  {
+    "uuid": "mr-gollito-01",
+    "pet_uuid": "ec620d48-d618-4d9b-99e2-941b9430f5f5",
+    "date": "2026-08-11T20:10:00-05:00",
+    "weight": 9.0,
+    "diagnosis": "Control de pliegues faciales y dermatitis leve",
+    "treatment": "Limpieza diaria con toallitas de clorhexidina + Ácidos grasos Omega 3.",
+    "next_vaccine_date": "2026-12-01T00:00:00-05:00",
+    "created_at": "2026-08-11T20:10:00-05:00"
+  }
+]
