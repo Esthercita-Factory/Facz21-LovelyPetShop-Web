@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Product } from '../../types';
 import { apiFetch } from '../../services/api';
 import { Input } from '../common/Input';
-import { Badge } from '../common/Badge';
+import { Badge, getCategoryBadgeVariant } from '../common/Badge';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { Search, ShoppingBag, Info, Check, PackageOpen } from 'lucide-react';
@@ -15,12 +15,12 @@ export const StorePage: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const categories = [
-    { id: 'todos', label: 'Todos los Productos' },
+    { id: 'todos', label: 'Todos' },
     { id: 'Alimentos', label: 'Alimentos' },
-    { id: 'Farmacia y Cuidado', label: 'Farmacia & Salud' },
+    { id: 'Farmacia y Cuidado', label: 'Farmacia y Cuidado' },
     { id: 'Accesorios', label: 'Accesorios' },
-    { id: 'Snacks', label: 'Snacks & Premios' },
-    { id: 'Higiene', label: 'Higiene & Estética' },
+    { id: 'Snacks', label: 'Snacks' },
+    { id: 'Higiene', label: 'Higiene' },
     { id: 'Juguetes', label: 'Juguetes' },
   ];
 
@@ -67,10 +67,10 @@ export const StorePage: React.FC = () => {
           <button
             key={cat.id}
             onClick={() => setCategoryFilter(cat.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               categoryFilter === cat.id
-                ? 'bg-indigo-600 text-white shadow-xs'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             {cat.label}
@@ -110,7 +110,8 @@ export const StorePage: React.FC = () => {
               key={p.uuid}
               className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-200 group"
             >
-              <div className="aspect-4/3 w-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden relative">
+              {/* Clean photo without any overlay banner */}
+              <div className="aspect-4/3 w-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden">
                 {p.image_url || p.imageUrl ? (
                   <img
                     src={p.image_url || p.imageUrl}
@@ -118,15 +119,10 @@ export const StorePage: React.FC = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-4xl">
-                    🛍️
+                  <div className="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-700">
+                    <ShoppingBag className="w-10 h-10 opacity-40" />
                   </div>
                 )}
-                <div className="absolute top-2.5 right-2.5">
-                  <Badge variant="primary" size="sm">
-                    {p.category}
-                  </Badge>
-                </div>
               </div>
 
               <div className="p-5 flex flex-col justify-between flex-1 gap-4">
@@ -137,6 +133,13 @@ export const StorePage: React.FC = () => {
                   <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">
                     {p.description || 'Producto garantizado de alta calidad para el cuidado de mascotas.'}
                   </p>
+
+                  {/* Category pill cleanly placed beneath description */}
+                  <div className="mt-2.5">
+                    <Badge variant={getCategoryBadgeVariant(p.category)} size="sm">
+                      {p.category}
+                    </Badge>
+                  </div>
                 </div>
 
                 <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
@@ -144,7 +147,7 @@ export const StorePage: React.FC = () => {
                     <span className="text-lg font-extrabold text-indigo-600 dark:text-indigo-400">
                       ${p.price.toLocaleString('es-CO')}
                     </span>
-                    <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                       <Check className="w-3.5 h-3.5" /> En Stock
                     </span>
                   </div>
@@ -195,7 +198,7 @@ export const StorePage: React.FC = () => {
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Badge variant="purple" size="md">
+                <Badge variant={getCategoryBadgeVariant(selectedProduct.category)} size="md">
                   {selectedProduct.category}
                 </Badge>
                 <span className="text-xl font-extrabold text-indigo-600 dark:text-indigo-400">

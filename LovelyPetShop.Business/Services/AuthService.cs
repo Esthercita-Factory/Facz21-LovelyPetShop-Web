@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using LovelyPetShop.Business.Security;
 using LovelyPetShop.Domain.Entities;
 using LovelyPetShop.Domain.Interfaces;
@@ -11,6 +12,8 @@ namespace LovelyPetShop.Business.Services;
 
 public class AuthService : IAuthService
 {
+    private static readonly Regex EmailRegex = new(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
+
     private readonly IUserRepository _userRepository;
     private readonly IOwnerRepository _ownerRepository;
     private readonly IEmployeeRepository _employeeRepository;
@@ -33,8 +36,8 @@ public class AuthService : IAuthService
         if (string.IsNullOrWhiteSpace(usernameOrEmail) || string.IsNullOrWhiteSpace(password))
             return AuthResult.Fail("Nombre de usuario/correo y contraseña son requeridos.");
 
-        var user = await _userRepository.GetByUsernameAsync(usernameOrEmail)
-                   ?? await _userRepository.GetByEmailAsync(usernameOrEmail);
+        var user = await _userRepository.GetByUsernameAsync(usernameOrEmail.Trim())
+                   ?? await _userRepository.GetByEmailAsync(usernameOrEmail.Trim());
 
         if (user == null)
             return AuthResult.Fail("Credenciales inválidas.");
@@ -60,6 +63,15 @@ public class AuthService : IAuthService
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             return AuthResult.Fail("Usuario, correo y contraseña son obligatorios.");
 
+        username = username.Trim();
+        email = email.Trim().ToLowerInvariant();
+
+        if (!EmailRegex.IsMatch(email))
+            return AuthResult.Fail("El correo electrónico ingresado no tiene un formato válido o real (ej: usuario@dominio.com).");
+
+        if (password.Length < 6)
+            return AuthResult.Fail("La contraseña debe tener al menos 6 caracteres.");
+
         if (await _userRepository.GetByUsernameAsync(username) != null)
             return AuthResult.Fail("El nombre de usuario ya está en uso.");
 
@@ -80,10 +92,10 @@ public class AuthService : IAuthService
             var newOwner = new Owner
             {
                 Uuid = Guid.NewGuid().ToString(),
-                Name = fullName,
+                Name = fullName.Trim(),
                 Email = email,
-                Phone = phone,
-                Address = address,
+                Phone = phone?.Trim() ?? string.Empty,
+                Address = address?.Trim() ?? string.Empty,
                 DocumentType = "CC",
                 DocumentNumber = Guid.NewGuid().ToString("N")[..8].ToUpperInvariant(),
                 CreatedAt = DateTime.UtcNow
@@ -97,7 +109,7 @@ public class AuthService : IAuthService
             Uuid = Guid.NewGuid().ToString(),
             Username = username,
             Email = email,
-            FullName = fullName,
+            FullName = fullName.Trim(),
             Role = UserRoles.Cliente,
             OwnerId = ownerId,
             PasswordHash = PasswordHasher.HashPassword(password),

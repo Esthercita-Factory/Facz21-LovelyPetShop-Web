@@ -15,6 +15,9 @@ import { AppointmentsPage } from './components/appointments/AppointmentsPage';
 import { ProductsPage } from './components/products/ProductsPage';
 import { EmployeesPage } from './components/employees/EmployeesPage';
 import { CombinedRegistrationPage } from './components/pets/CombinedRegistrationPage';
+import { VaccinesPage } from './components/vaccines/VaccinesPage';
+import { HospitalizationPage } from './components/hospitalization/HospitalizationPage';
+import { AuditLogsPage } from './components/audit/AuditLogsPage';
 
 const AppContent: React.FC = () => {
   const { user, isStaff, isClient } = useAuth();
@@ -52,15 +55,22 @@ const AppContent: React.FC = () => {
         return <DashboardPage />;
       case 'pets':
         return <PetsPage />;
-      case 'owners':
-        return <OwnersPage />;
+      case 'vaccines':
+        return <VaccinesPage />;
+      case 'hospitalization':
+        return <HospitalizationPage />;
       case 'appointments':
         return <AppointmentsPage />;
+      case 'owners':
+        return <OwnersPage />;
       case 'products':
         return <ProductsPage />;
       case 'employees':
         return <EmployeesPage />;
+      case 'audit-logs':
+        return <AuditLogsPage />;
       case 'combined':
+      case 'combined-reg':
         return <CombinedRegistrationPage onSuccess={() => setActiveTab('pets')} />;
       default:
         return <LandingPage onNavigate={setActiveTab} onOpenAuth={handleOpenAuth} />;

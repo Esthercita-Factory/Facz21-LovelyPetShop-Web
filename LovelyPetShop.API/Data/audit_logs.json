@@ -1,0 +1,22 @@
+[
+  {
+    "uuid": "2aac610e-b2bc-46c8-baa8-e2fe0d6ed1dd",
+    "timestamp": "2026-08-27T18:28:34.2749739-05:00",
+    "user_name": "admin",
+    "user_role": "Admin",
+    "action": "INICIO_SESION",
+    "module": "Seguridad",
+    "description": "Ingreso exitoso al panel administrativo de la cl\u00EDnica.",
+    "details": ""
+  },
+  {
+    "uuid": "35c9377f-ea50-4b63-9b26-9ed8715a36dd",
+    "timestamp": "2026-08-27T19:28:34.2750996-05:00",
+    "user_name": "vet",
+    "user_role": "Veterinario",
+    "action": "ACTUALIZAR",
+    "module": "Hospitalizaci\u00F3n",
+    "description": "Actualizaci\u00F3n de notas m\u00E9dicas y plan de medicaci\u00F3n para paciente Luna (C-02).",
+    "details": ""
+  }
+]

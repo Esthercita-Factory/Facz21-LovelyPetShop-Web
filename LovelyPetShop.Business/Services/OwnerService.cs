@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using LovelyPetShop.Domain.Entities;
 using LovelyPetShop.Domain.Interfaces;
 
@@ -5,6 +6,7 @@ namespace LovelyPetShop.Business.Services;
 
 public class OwnerService : IOwnerService
 {
+    private static readonly Regex EmailRegex = new(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
     private readonly IOwnerRepository _ownerRepository;
     private readonly IPetRepository _petRepository;
 
@@ -81,6 +83,15 @@ public class OwnerService : IOwnerService
         if (string.IsNullOrWhiteSpace(phone))
             return (false, "El teléfono de contacto es obligatorio.", null);
 
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            email = email.Trim().ToLowerInvariant();
+            if (!EmailRegex.IsMatch(email))
+            {
+                return (false, "El correo electrónico ingresado no tiene un formato válido (ej: usuario@dominio.com).", null);
+            }
+        }
+
         var existingByDoc = await GetOwnerByDocumentAsync(documentNumber, documentType);
         if (existingByDoc != null)
             return (false, $"Ya existe un propietario registrado con {documentType} No. {documentNumber}.", null);
@@ -146,7 +157,14 @@ public class OwnerService : IOwnerService
             owner.Phone = phone.Trim();
 
         if (email != null)
-            owner.Email = email.Trim();
+        {
+            email = email.Trim().ToLowerInvariant();
+            if (!string.IsNullOrWhiteSpace(email) && !EmailRegex.IsMatch(email))
+            {
+                return (false, "El correo electrónico ingresado no tiene un formato válido (ej: usuario@dominio.com).");
+            }
+            owner.Email = email;
+        }
 
         if (address != null)
             owner.Address = address.Trim();

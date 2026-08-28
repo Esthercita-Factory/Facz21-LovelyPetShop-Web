@@ -1,73 +1,108 @@
-# LovelyPetShop Web & API - Clínica Veterinaria 🐾
+# LovelyPetShop Web & REST API - Clínica Veterinaria 🐾
 
-Sistema completo de gestión veterinaria refactorizado con arquitectura limpia por capas en **.NET 10**, con una potente **ASP.NET Core Web API** y un **Dashboard Web Moderno** interactivo.
-
-[![CI Pipeline](https://github.com/OWNER/REPOSITORY/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPOSITORY/actions/workflows/ci.yml)
+Sistema integral de gestión veterinaria y tienda para mascotas desarrollado con arquitectura limpia por capas en **.NET 10 (ASP.NET Core Web API)** y una **Single Page Application (SPA)** moderna en **React 19 + TypeScript + Tailwind CSS v4**.
 
 ---
 
-## 🏗️ Arquitectura del Proyecto
+## 🏗️ Arquitectura de la Solución
 
-El repositorio está estructurado en 5 proyectos modulares bajo la solución `LovelyPetShop.sln`:
+El repositorio está organizado bajo el patrón de arquitectura limpia en capas (`LovelyPetShop.sln`):
 
-| Proyecto | Tipo | Descripción |
+| Proyecto / Carpeta | Tipo | Descripción |
 | :--- | :--- | :--- |
-| [`LovelyPetShop.Domain`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain) | Class Library | Entidades (`Owner`, `Pet`) e Interfaces del repositorio y servicios. |
-| [`LovelyPetShop.DataAccess`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess) | Class Library | Persistencia en disco usando repositorios JSON (`JsonOwnerRepository`, `JsonPetRepository`). |
-| [`LovelyPetShop.Business`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business) | Class Library | Lógica de negocio y validaciones (`OwnerService`, `PetService`). |
-| [`LovelyPetShop.API`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.API) | ASP.NET Core Web API | Endpoints RESTful (`/api/owners`, `/api/pets`, `/api/stats`), Swagger UI y Servidor Web Dashboard. |
-| [`LovelyPetShop.Tests`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Tests) | xUnit Test Project | Suite de pruebas unitarias automatizadas. |
+| [`LovelyPetShop.Domain`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Domain) | Class Library | Entidades del dominio (`User`, `Owner`, `Pet`, `MedicalRecord`, `Appointment`, `Employee`, `Product`) e interfaces. |
+| [`LovelyPetShop.DataAccess`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.DataAccess) | Class Library | Persistencia en almacenamiento JSON (`JsonUserRepository`, `JsonOwnerRepository`, etc.). |
+| [`LovelyPetShop.Business`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business) | Class Library | Reglas de negocio, seguridad (`PasswordHasher` PBKDF2/SHA256) y validaciones de datos. |
+| [`LovelyPetShop.API`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.API) | ASP.NET Core API | Controladores RESTful, autenticación JWT, Swagger UI y servidor de archivos estáticos. |
+| [`LovelyPetShop.Tests`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Tests) | xUnit Tests | Suite de pruebas unitarias automatizadas (9/9 pruebas pasando). |
+| [`frontend/`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/frontend) | React 19 + TS | Interfaz moderna con Tailwind CSS v4, Lucide Icons, tema claro/oscuro dinámico y React Portals. |
 
 ---
 
-## 🚀 Características de la Versión Web
+## 👥 Usuarios de Prueba y Credenciales (Seed)
 
-- **Dashboard Interactivo**: Métricas clave en tiempo real, distribución porcentual por especies (Perros, Gatos, Conejos, Aves, etc.) y feed de registros recientes.
-- **Gestión de Mascotas**: Búsqueda instantánea, filtrado dinámico por especies, modales de creación/edición de pacientes y eliminación segura.
-- **Gestión de Propietarios**: Búsqueda por documento/teléfono/nombre, soporte para tipos de documento oficiales de Colombia (`CC`, `CE`, `TI`, `RC`, `NIT`, `PASAPORTE`, `PEP`, `PPT`), y vista de mascotas asociadas.
-- **Registro Rápido en 1 Paso**: Formulario dual para registrar al propietario y su mascota simultáneamente.
-- **Swagger / OpenAPI**: Documentación y pruebas interactivas de API disponibles en `/swagger`.
-- **Diseño Moderno & Glassmorphic**: Interfaz con tema oscuro, micro-animaciones, badges temáticos y sistema de notificaciones Toast.
+El sistema incluye cuentas de prueba precargadas automáticamente al iniciar la aplicación.
+
+* **Ubicación en disco**: [`LovelyPetShop.API/Data/users.json`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.API/Data/users.json)
+* **Generador de semillas**: [`LovelyPetShop.Business/Services/AuthService.cs`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/LovelyPetShop.Business/Services/AuthService.cs) en `EnsureSeedUsersAsync()`.
+
+| Rol | Usuario | Correo Electrónico | Contraseña | Permisos y Vistas |
+| :--- | :--- | :--- | :--- | :--- |
+| 👑 **Admin** | `admin` | `admin@lovelypet.com` | `Admin123!` | Acceso total al Dashboard, Pacientes, Historiales, Citas, Empleados, Insumos y Tienda. |
+| 🩺 **Veterinario** | `vet` | `valeria.vet@lovelypet.com` | `Vet123!` | Gestión de Pacientes, Registro de Fichas/Consultas Médicas y Agenda de Citas. |
+| 🛎️ **Recepción** | `recepcion` | `recepcion@lovelypet.com` | `Recepcion123!` | Registro de Propietarios, Registro Rápido Conjunto (1 Paso) y Agenda de Citas. |
+| 🐶 **Cliente** | `cliente` | `afcz@gmail.com` | `Cliente123!` | Portal "Mis Mascotas", Consulta de Historial Clínico Digital y Agendamiento de Citas. |
+
+---
+
+## ✨ Características Principales
+
+1. **Autenticación y Seguridad**:
+   - Autenticación mediante **JWT (JSON Web Tokens)** con expiración y roles (RBAC).
+   - Hashing seguro de contraseñas con sal aleatoria (`PasswordHasher`).
+   - Validación estricta de correos electrónicos reales mediante RFC 5322.
+
+2. **Módulo Clínico y Pacientes**:
+   - Ficha médica digital con diagnósticos, tratamientos y alertas de próximas vacunas.
+   - Búsqueda instantánea y filtrado por especies (Perros, Gatos, Conejos, Aves, etc.).
+
+3. **Agendamiento Inteligente de Citas**:
+   - Restricción estricta a fechas y horas actuales o futuras.
+   - Validación de horarios hábiles de la clínica (Lun-Sáb: 8:00 AM - 7:00 PM | Dom: 8:00 AM - 2:00 PM).
+   - Prevención de citas duplicadas y solapamiento de horarios.
+
+4. **Portal del Propietario ("Mis Mascotas")**:
+   - Visualización de las mascotas registradas a nombre del usuario.
+   - Consulta del historial clínico completo y agendamiento directo de citas.
+
+5. **Tienda y Catálogo de Productos**:
+   - Catálogo interactivo con insignias de categoría de alto contraste y búsqueda en tiempo real.
+
+6. **Diseño y Experiencia de Usuario (UI/UX)**:
+   - Tema oscuro y claro persistente en `localStorage`.
+   - Modales 100% estáticos centrados mediante **React Portals** (`createPortal(..., document.body)`).
+   - Alertas contextuales integradas en formularios.
 
 ---
 
 ## 💻 Instrucciones de Ejecución
 
-### 1. Ejecutar la Aplicación Web & REST API
+### 1. Iniciar la Aplicación (.NET API + Frontend integrado)
 ```bash
 dotnet run --project LovelyPetShop.API
 ```
-Abre tu navegador en `http://localhost:5000` o la URL indicada en la consola para interactuar con la Web App.
+Abre tu navegador en: **`http://localhost:5108`**
 
-Para explorar la documentación OpenAPI Swagger:
-`http://localhost:5000/swagger`
+Para explorar la documentación interactiva Swagger:
+**`http://localhost:5108/swagger`**
 
-### 2. Ejecutar las Pruebas Unitarias
+---
+
+### 2. Desarrollo en el Frontend (Opcional)
+Si deseas modificar componentes o estilos de React en tiempo real con Hot Module Replacement (HMR):
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Para compilar los activos estáticos para producción (se generan en `LovelyPetShop.API/wwwroot`):
+```bash
+cd frontend
+npm run build
+```
+
+---
+
+### 3. Ejecutar las Pruebas Unitarias
 ```bash
 dotnet test LovelyPetShop.sln
 ```
 
-### 3. Construir y Ejecutar con Docker
-```bash
-docker build -t lovelypetshop-web .
-docker run -d -p 8080:8080 lovelypetshop-web
-```
-Accede a la app en `http://localhost:8080`. Para una explicación detallada de la arquitectura de contenedores, consulta la guía [`DOCKER.md`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/DOCKER.md).
-
 ---
 
-## 📝 Endpoints REST API
-
-- `GET /api/stats` - Estadísticas y métricas generales del sistema.
-- `GET /api/owners` - Obtener lista de propietarios con sus mascotas.
-- `GET /api/owners/{docNumber}` - Buscar propietario por número de documento.
-- `POST /api/owners` - Registrar un nuevo propietario.
-- `PUT /api/owners/{docNumber}` - Actualizar datos de propietario.
-- `DELETE /api/owners/{docNumber}` - Eliminar propietario.
-- `GET /api/pets` - Listar todas las mascotas.
-- `GET /api/pets/{uuid}` - Buscar mascota por UUID.
-- `GET /api/pets/by-owner/{docNumber}` - Mascotas asociadas a un propietario.
-- `POST /api/pets` - Registrar mascota.
-- `POST /api/pets/with-owner` - Registrar mascota y propietario conjuntamente.
-- `PUT /api/pets/{uuid}` - Actualizar mascota.
-- `DELETE /api/pets/{uuid}` - Eliminar mascota.
+### 4. Ejecución en Contenedores Docker
+```bash
+docker compose up -d --build
+```
+Accede en `http://localhost:8080`. Más detalles en la guía [`DOCKER.md`](file:///home/facz/Documentos/Facz.dev/C%23/Projects/Facz21-LovelyPetShop-Web/DOCKER.md).

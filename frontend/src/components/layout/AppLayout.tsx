@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { CustomerNavbar } from './CustomerNavbar';
 import { StaffSidebar } from './StaffSidebar';
-import { Toast } from '../common/Toast';
 import { ThemeToggle } from '../common/ThemeToggle';
 
 interface AppLayoutProps {
@@ -31,7 +30,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           </div>
         </main>
 
-        <Toast />
         <ThemeToggle />
       </div>
     );
@@ -51,7 +49,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </div>
       </main>
 
-      <Toast />
       <ThemeToggle />
     </div>
   );

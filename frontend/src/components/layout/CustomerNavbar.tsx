@@ -1,8 +1,8 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Heart, Home, ShoppingBag, LogIn, LogOut, LayoutDashboard, PawPrint } from 'lucide-react';
+import { Home, ShoppingBag, LogIn, LogOut, LayoutDashboard, PawPrint } from 'lucide-react';
 import { Button } from '../common/Button';
-import { Badge } from '../common/Badge';
+import { BrandLogoIcon } from '../common/PetIcons';
 
 interface CustomerNavbarProps {
   activeTab: string;
@@ -32,16 +32,14 @@ export const CustomerNavbar: React.FC<CustomerNavbarProps> = ({
   return (
     <header className="sticky top-0 z-30 w-full glass-panel border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand */}
+        {/* Brand with Custom Brand Logo */}
         <button
           onClick={() => onSelectTab('landing')}
-          className="flex items-center gap-2.5 group cursor-pointer text-left focus:outline-none"
+          className="flex items-center gap-3 group cursor-pointer text-left focus:outline-none"
         >
-          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-            <Heart className="w-5 h-5 fill-indigo-600 dark:fill-indigo-400" />
-          </div>
+          <BrandLogoIcon className="w-9 h-9 group-hover:scale-105 transition-transform duration-200" />
           <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            Lovely<span className="text-indigo-600 dark:text-indigo-400">Pet</span>Shop
+            Lovely<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-pink-500">Pet</span>Shop
           </span>
         </button>
 

@@ -10,6 +10,7 @@ import { Select } from '../common/Select';
 import { Textarea } from '../common/Textarea';
 import { MedicalRecordModal } from './MedicalRecordModal';
 import { Search, Plus, PawPrint, FileText, Edit3, Trash2, Cake, Scale, IdCard } from 'lucide-react';
+import { getSpeciesAvatarComponent } from '../common/PetIcons';
 
 export const PetsPage: React.FC = () => {
   const { showToast } = useAuth();
@@ -149,15 +150,6 @@ export const PetsPage: React.FC = () => {
     return 'slate';
   };
 
-  const getSpeciesEmoji = (s: string) => {
-    const low = s.toLowerCase();
-    if (low.includes('perro')) return '🐶';
-    if (low.includes('gato')) return '🐱';
-    if (low.includes('conejo')) return '🐰';
-    if (low.includes('ave')) return '🦜';
-    return '🐾';
-  };
-
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -230,13 +222,13 @@ export const PetsPage: React.FC = () => {
             return (
               <div
                 key={p.uuid}
-                className="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-200 space-y-5"
+                className="glass-card rounded-3xl p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-200 space-y-5"
               >
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 flex items-center justify-center text-2xl shrink-0">
-                        {getSpeciesEmoji(p.species)}
+                      <div className="shrink-0">
+                        {getSpeciesAvatarComponent(p.species, 'w-12 h-12', p.name)}
                       </div>
                       <div>
                         <h4 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
@@ -248,7 +240,7 @@ export const PetsPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <Badge variant={getSpeciesBadgeVariant(p.species) as any} size="sm">
+                    <Badge variant="neutral" size="sm">
                       {p.species}
                     </Badge>
                   </div>

@@ -8,7 +8,7 @@ import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Select } from '../common/Select';
 import { Textarea } from '../common/Textarea';
-import { Plus, Calendar, Clock, PawPrint, Edit3, Trash2, CalendarDays } from 'lucide-react';
+import { Plus, Calendar, Clock, PawPrint, Edit3, Trash2, CalendarDays, AlertCircle } from 'lucide-react';
 
 export const AppointmentsPage: React.FC = () => {
   const { showToast } = useAuth();
@@ -28,7 +28,14 @@ export const AppointmentsPage: React.FC = () => {
   const [serviceType, setServiceType] = useState('Consulta General');
   const [status, setStatus] = useState('Programada');
   const [notes, setNotes] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const getCurrentMinDateTime = () => {
+    const now = new Date();
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    return new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
+  };
 
   const loadData = async () => {
     setLoading(true);
@@ -61,11 +68,38 @@ export const AppointmentsPage: React.FC = () => {
     return found ? (found.ownerUuid || found.owner_uuid || found.ownerDocumentNumber || '') : '';
   };
 
+  const validateAppointmentSlot = (dateStr: string): string | null => {
+    if (!dateStr) return 'Por favor seleccione una fecha y hora.';
+    const selected = new Date(dateStr);
+    const now = new Date();
+
+    if (!editingUuid && selected < now) {
+      return 'No es posible programar citas en fechas u horas pasadas.';
+    }
+
+    const hour = selected.getHours();
+    const dayOfWeek = selected.getDay(); // 0 = Sunday
+
+    if (dayOfWeek === 0) {
+      if (hour < 8 || hour >= 14) {
+        return 'Los domingos la clínica atiende únicamente de 8:00 AM a 2:00 PM.';
+      }
+    } else {
+      if (hour < 8 || hour >= 19) {
+        return 'El horario de atención es de 8:00 AM a 7:00 PM (Lunes a Sábado).';
+      }
+    }
+
+    return null;
+  };
+
   const handleOpenCreate = () => {
     setEditingUuid(null);
     setPetUuid(pets[0]?.uuid || '');
+    setFormError(null);
     const nextDate = new Date();
-    nextDate.setHours(nextDate.getHours() + 1, 0, 0, 0);
+    nextDate.setDate(nextDate.getDate() + 1);
+    nextDate.setHours(9, 0, 0, 0);
     const tzOffset = nextDate.getTimezoneOffset() * 60000;
     setScheduledDate(new Date(nextDate.getTime() - tzOffset).toISOString().slice(0, 16));
     setServiceType('Consulta General');
@@ -77,6 +111,7 @@ export const AppointmentsPage: React.FC = () => {
   const handleOpenEdit = (a: Appointment) => {
     setEditingUuid(a.uuid);
     setPetUuid(a.pet_uuid || a.petUuid || '');
+    setFormError(null);
     const rawDate = a.scheduled_date || a.scheduledDate || new Date();
     const dt = new Date(rawDate);
     const tzOffset = dt.getTimezoneOffset() * 60000;
@@ -100,7 +135,14 @@ export const AppointmentsPage: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validationError = validateAppointmentSlot(scheduledDate);
+    if (validationError) {
+      setFormError(validationError);
+      return;
+    }
+
     setSubmitting(true);
+    setFormError(null);
 
     try {
       const body = {
@@ -129,7 +171,7 @@ export const AppointmentsPage: React.FC = () => {
       setIsModalOpen(false);
       loadData();
     } catch (err: any) {
-      showToast(err.message || 'Error al guardar cita', 'error');
+      setFormError(err.message || 'Error al guardar cita');
     } finally {
       setSubmitting(false);
     }
@@ -300,6 +342,13 @@ export const AppointmentsPage: React.FC = () => {
           maxWidth="md"
         >
           <form onSubmit={handleFormSubmit} className="space-y-4">
+            {formError && (
+              <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-600 dark:text-red-400">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <span>{formError}</span>
+              </div>
+            )}
+
             <Select
               label="Paciente (Mascota)"
               value={petUuid}
@@ -315,13 +364,22 @@ export const AppointmentsPage: React.FC = () => {
             </Select>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Input
-                label="Fecha y Hora"
-                type="datetime-local"
-                value={scheduledDate}
-                onChange={e => setScheduledDate(e.target.value)}
-                required
-              />
+              <div>
+                <Input
+                  label="Fecha y Hora"
+                  type="datetime-local"
+                  min={getCurrentMinDateTime()}
+                  value={scheduledDate}
+                  onChange={e => {
+                    setScheduledDate(e.target.value);
+                    setFormError(null);
+                  }}
+                  required
+                />
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
+                  Lun-Sáb: 8am-7pm | Dom: 8am-2pm
+                </p>
+              </div>
 
               <Select
                 label="Servicio"

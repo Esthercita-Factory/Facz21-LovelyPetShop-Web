@@ -1,12 +1,12 @@
 [
   {
-    "uuid": "8826baa4-c830-4c3e-b8d3-645f9d6d1aaf",
+    "uuid": "e8b2fc0b-ac35-4dad-8ab3-2f49ce6f1568",
     "pet_uuid": "08858a38-ee38-401a-b922-840e81df8568",
     "owner_uuid": "77aabf77-672a-4c5d-923a-e21e9e2a6d05",
-    "scheduled_date": "2026-08-28T15:00:00Z",
-    "service_type": "Consulta General",
+    "scheduled_date": "2026-08-31T14:30:00Z",
+    "service_type": "Peluquer\u00EDa \u0026 Spa",
     "status": "Programada",
-    "notes": "",
-    "created_at": "2026-08-27T15:59:25.3135473-05:00"
+    "notes": "Le quiero cortar el pelito a Baki",
+    "created_at": "2026-08-27T19:39:30.4180875-05:00"
   }
 ]
