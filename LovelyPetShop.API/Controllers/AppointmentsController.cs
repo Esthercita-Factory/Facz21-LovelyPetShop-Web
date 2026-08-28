@@ -63,6 +63,10 @@ public class AppointmentsController : ControllerBase
         {
             return NotFound(new { message = "Cita no encontrada." });
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpDelete("{uuid}")]

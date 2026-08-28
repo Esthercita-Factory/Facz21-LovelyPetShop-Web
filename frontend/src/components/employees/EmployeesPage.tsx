@@ -25,6 +25,8 @@ export const EmployeesPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [schedule, setSchedule] = useState('L-V 8am-5pm');
   const [isActive, setIsActive] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const loadEmployees = async () => {
@@ -51,6 +53,8 @@ export const EmployeesPage: React.FC = () => {
     setPhone('');
     setEmail('');
     setSchedule('L-V 8am-5pm');
+    setUsername('');
+    setPassword('');
     setIsActive(true);
     setIsModalOpen(true);
   };
@@ -63,6 +67,8 @@ export const EmployeesPage: React.FC = () => {
     setPhone(e.phone);
     setEmail(e.email);
     setSchedule(e.schedule || 'L-V 8am-5pm');
+    setUsername('');
+    setPassword('');
     setIsActive(e.is_active ?? e.isActive ?? true);
     setIsModalOpen(true);
   };
@@ -91,7 +97,9 @@ export const EmployeesPage: React.FC = () => {
         email,
         schedule,
         is_active: isActive,
-        isActive: isActive
+        isActive: isActive,
+        username: username.trim() || undefined,
+        password: password.trim() || undefined
       };
 
       if (editingUuid) {
@@ -311,6 +319,27 @@ export const EmployeesPage: React.FC = () => {
               value={schedule}
               onChange={e => setSchedule(e.target.value)}
             />
+
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/80 space-y-3">
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
+                Cuenta de Acceso al Sistema (Opcional)
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Input
+                  label="Nombre de Usuario"
+                  placeholder="Ej: dr.carlos"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />
+                <Input
+                  label="Contraseña"
+                  type="password"
+                  placeholder="Mínimo 6 caracteres"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
 
             <div className="grid grid-cols-2 gap-3 pt-2">
               <Button

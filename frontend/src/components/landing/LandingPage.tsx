@@ -3,16 +3,12 @@ import { Product } from '../../types';
 import { apiFetch } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../common/Button';
-import { Badge } from '../common/Badge';
+import { Badge, getCategoryBadgeVariant } from '../common/Badge';
 import { 
   Sparkles, 
   ShoppingBag, 
   LogIn, 
   ShieldCheck, 
-  Stethoscope, 
-  Shield, 
-  Scissors, 
-  Activity, 
   ArrowRight, 
   Clock, 
   MapPin, 
@@ -21,6 +17,13 @@ import {
   LayoutDashboard,
   PawPrint
 } from 'lucide-react';
+import { 
+  ClinicalStethoscopeIcon, 
+  VaccineSyringeIcon, 
+  GroomingSpaIcon, 
+  PharmacyRxIcon,
+  BrandLogoIcon 
+} from '../common/PetIcons';
 
 interface LandingPageProps {
   onNavigate: (tab: string) => void;
@@ -31,7 +34,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onNavigate,
   onOpenAuth
 }) => {
-  const { user, isAuthenticated, isStaff, isClient } = useAuth();
+  const { user, isAuthenticated, isStaff } = useAuth();
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,7 +79,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
-              Atención médica profesional, citas médicas especializadas, nutrición premium y seguimiento de salud en un solo lugar.
+              Atención médica profesional, citas especializadas, nutrición premium y seguimiento de salud en un solo lugar.
             </p>
 
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
@@ -128,7 +131,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
           {/* Hero Visual Card */}
           <div className="lg:col-span-5">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-400 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-8 h-8" />
@@ -139,24 +142,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-3 pt-2 border-t border-white/10 text-sm text-slate-200">
+              <div className="space-y-3.5 pt-2 border-t border-white/10 text-sm text-slate-200">
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5" />
                   </div>
-                  <span>🐶 Vacunación y desparasitación al día</span>
+                  <span>Esquemas de vacunación y desparasitación</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5" />
                   </div>
-                  <span>🐱 Cirugías y laboratorio clínico</span>
+                  <span>Cirugías, laboratorio clínico y farmacia</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5" />
                   </div>
-                  <span>🩺 Fichas clínicas digitales para clientes</span>
+                  <span>Fichas clínicas digitales y agendamiento</span>
                 </div>
               </div>
             </div>
@@ -164,55 +167,55 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services Grid with Custom Icons */}
       <section className="space-y-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Nuestros Servicios
+            Nuestros Servicios Clínicos
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Especialidades diseñadas para el bienestar integral de tus mascotas.
+            Especialidades diseñadas para el bienestar y la salud integral de tus consentidos.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-all duration-200 group">
-            <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Stethoscope className="w-6 h-6" />
+          <div className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-200 group">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <ClinicalStethoscopeIcon className="w-7 h-7" />
             </div>
             <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Consulta Médica</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Diagnósticos precisos, control general preventivo y tratamientos individualizados.
+              Diagnósticos precisos, chequeos preventivos y tratamientos médicos personalizados.
             </p>
           </div>
 
-          <div className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-all duration-200 group">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Shield className="w-6 h-6" />
+          <div className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-200 group">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <VaccineSyringeIcon className="w-7 h-7" />
             </div>
-            <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Vacunación & Desparasitación</h4>
+            <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Vacunación & Control</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Esquemas completos para cachorros, adultos y prevención periódica de parásitos.
+              Esquemas completos para cachorros y adultos con recordatorios automáticos de refuerzo.
             </p>
           </div>
 
-          <div className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-all duration-200 group">
-            <div className="w-12 h-12 rounded-xl bg-pink-50 dark:bg-pink-950/80 text-pink-600 dark:text-pink-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Scissors className="w-6 h-6" />
+          <div className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-200 group">
+            <div className="w-14 h-14 rounded-2xl bg-pink-50 dark:bg-pink-950/80 text-pink-600 dark:text-pink-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <GroomingSpaIcon className="w-7 h-7" />
             </div>
             <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Peluquería & Spa</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Baños medicados, cortes de raza, corte de uñas y estética profesional.
+              Baños medicados, corte higiénico y estético según raza, y cuidado dermatológico.
             </p>
           </div>
 
-          <div className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-all duration-200 group">
-            <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Activity className="w-6 h-6" />
+          <div className="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-200 group">
+            <div className="w-14 h-14 rounded-2xl bg-cyan-50 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <PharmacyRxIcon className="w-7 h-7" />
             </div>
-            <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Cirugías & Laboratorio</h4>
+            <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">Farmacia & Cirugía</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Quirófano equipado para esterilizaciones, cirugías menores y análisis clínicos.
+              Medicamentos certificados, biológicos, laboratorio clínico y cirugías programadas.
             </p>
           </div>
         </div>
@@ -249,8 +252,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map(p => (
-              <div key={p.uuid} className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-200 group">
-                <div className="aspect-4/3 w-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden relative">
+              <div key={p.uuid} className="glass-card rounded-3xl overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-200 group">
+                <div className="aspect-4/3 w-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden">
                   {p.image_url || p.imageUrl ? (
                     <img
                       src={p.image_url || p.imageUrl}
@@ -258,21 +261,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-3xl">
-                      🛍️
+                    <div className="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-600">
+                      <BrandLogoIcon className="w-12 h-12 opacity-60" />
                     </div>
                   )}
-                  <div className="absolute top-2.5 right-2.5">
-                    <Badge variant="primary" size="sm">
-                      {p.category}
-                    </Badge>
-                  </div>
                 </div>
 
-                <div className="p-5 flex flex-col justify-between flex-1 gap-3">
+                <div className="p-5 flex flex-col justify-between flex-1 gap-3.5">
                   <div>
                     <h4 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">{p.name}</h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">{p.description}</p>
+                    
+                    <div className="mt-2.5">
+                      <Badge variant={getCategoryBadgeVariant(p.category)} size="sm">
+                        {p.category}
+                      </Badge>
+                    </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
@@ -296,21 +300,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* Info & Contact Banner */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-card rounded-2xl p-6 flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+        <div className="glass-card rounded-3xl p-6 flex items-start gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
             <Clock className="w-6 h-6" />
           </div>
           <div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Horarios de Atención</h4>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Lunes a Sábado: 8:00 AM - 7:00 PM<br />
-              Domingos y Festivos: 9:00 AM - 2:00 PM
+              Domingos y Festivos: 8:00 AM - 2:00 PM
             </p>
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-6 flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+        <div className="glass-card rounded-3xl p-6 flex items-start gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <MapPin className="w-6 h-6" />
           </div>
           <div>
@@ -322,8 +326,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-6 flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-pink-50 dark:bg-pink-950/80 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0">
+        <div className="glass-card rounded-3xl p-6 flex items-start gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-pink-50 dark:bg-pink-950/80 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0">
             <PhoneCall className="w-6 h-6" />
           </div>
           <div>

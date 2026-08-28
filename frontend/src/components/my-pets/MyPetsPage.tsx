@@ -16,9 +16,10 @@ import {
   CalendarPlus, 
   Scale, 
   Syringe, 
-  Check, 
-  Clock
+  Clock, 
+  AlertCircle
 } from 'lucide-react';
+import { getSpeciesAvatarComponent } from '../common/PetIcons';
 
 export const MyPetsPage: React.FC = () => {
   const { user, showToast } = useAuth();
@@ -35,6 +36,7 @@ export const MyPetsPage: React.FC = () => {
   const [appointmentService, setAppointmentService] = useState('Consulta General');
   const [appointmentDate, setAppointmentDate] = useState('');
   const [appointmentNotes, setAppointmentNotes] = useState('');
+  const [appointmentError, setAppointmentError] = useState<string | null>(null);
   const [submittingAppointment, setSubmittingAppointment] = useState(false);
 
   const [isNewPetModalOpen, setIsNewPetModalOpen] = useState(false);
@@ -45,6 +47,13 @@ export const MyPetsPage: React.FC = () => {
   const [newPetWeight, setNewPetWeight] = useState(5.0);
   const [newPetSymptoms, setNewPetSymptoms] = useState('');
   const [submittingPet, setSubmittingPet] = useState(false);
+
+  // Get current datetime string formatted for min attribute
+  const getCurrentMinDateTime = () => {
+    const now = new Date();
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    return new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
+  };
 
   const loadPets = async () => {
     setLoading(true);
@@ -86,22 +95,54 @@ export const MyPetsPage: React.FC = () => {
 
   const openAppointmentModal = (pet: Pet) => {
     setSelectedPetForAppointment(pet);
-    // Set default date to next day 10:00 AM
+    setAppointmentError(null);
     const nextDate = new Date();
     nextDate.setDate(nextDate.getDate() + 1);
-    nextDate.setHours(10, 0, 0, 0);
+    nextDate.setHours(9, 0, 0, 0);
     const tzOffset = nextDate.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(nextDate.getTime() - tzOffset).toISOString().slice(0, 16);
-    setAppointmentDate(localISOTime);
+    setAppointmentDate(new Date(nextDate.getTime() - tzOffset).toISOString().slice(0, 16));
     setAppointmentNotes('');
     setAppointmentService('Consulta General');
     setIsAppointmentModalOpen(true);
   };
 
+  const validateAppointmentSlot = (dateStr: string): string | null => {
+    if (!dateStr) return 'Por favor seleccione una fecha y hora.';
+    const selected = new Date(dateStr);
+    const now = new Date();
+
+    if (selected < now) {
+      return 'No es posible agendar citas en fechas u horas pasadas.';
+    }
+
+    const hour = selected.getHours();
+    const dayOfWeek = selected.getDay(); // 0 = Sunday
+
+    if (dayOfWeek === 0) {
+      if (hour < 8 || hour >= 14) {
+        return 'Los domingos la clínica atiende únicamente de 8:00 AM a 2:00 PM.';
+      }
+    } else {
+      if (hour < 8 || hour >= 19) {
+        return 'El horario de atención es de 8:00 AM a 7:00 PM (Lunes a Sábado).';
+      }
+    }
+
+    return null;
+  };
+
   const handleCreateAppointment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPetForAppointment) return;
+
+    const validationError = validateAppointmentSlot(appointmentDate);
+    if (validationError) {
+      setAppointmentError(validationError);
+      return;
+    }
+
     setSubmittingAppointment(true);
+    setAppointmentError(null);
 
     try {
       const body = {
@@ -121,7 +162,7 @@ export const MyPetsPage: React.FC = () => {
       showToast(`¡Cita agendada con éxito para ${selectedPetForAppointment.name}!`);
       setIsAppointmentModalOpen(false);
     } catch (err: any) {
-      showToast(err.message || 'Error al agendar cita', 'error');
+      setAppointmentError(err.message || 'Error al agendar cita');
     } finally {
       setSubmittingAppointment(false);
     }
@@ -169,15 +210,6 @@ export const MyPetsPage: React.FC = () => {
     return 'slate';
   };
 
-  const getSpeciesEmoji = (species: string) => {
-    const s = species.toLowerCase();
-    if (s.includes('perro')) return '🐶';
-    if (s.includes('gato')) return '🐱';
-    if (s.includes('conejo')) return '🐰';
-    if (s.includes('ave')) return '🦜';
-    return '🐾';
-  };
-
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -208,7 +240,7 @@ export const MyPetsPage: React.FC = () => {
           ))}
         </div>
       ) : pets.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 p-8 max-w-xl mx-auto">
+        <div className="text-center py-16 bg-white dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 p-8 max-w-xl mx-auto">
           <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
             <Heart className="w-8 h-8 fill-indigo-600 dark:fill-indigo-400" />
           </div>
@@ -229,14 +261,14 @@ export const MyPetsPage: React.FC = () => {
           {pets.map(pet => (
             <div
               key={pet.uuid}
-              className="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-200 space-y-5"
+              className="glass-card rounded-3xl p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-200 space-y-5"
             >
               <div>
-                {/* Top header */}
+                {/* Top header with Custom Stylized Animal Avatar */}
                 <div className="flex items-center justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 flex items-center justify-center text-2xl shrink-0">
-                      {getSpeciesEmoji(pet.species)}
+                    <div className="shrink-0">
+                      {getSpeciesAvatarComponent(pet.species, 'w-12 h-12', pet.name)}
                     </div>
                     <div>
                       <h4 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
@@ -248,7 +280,7 @@ export const MyPetsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <Badge variant={getSpeciesBadgeVariant(pet.species) as any} size="sm">
+                  <Badge variant="neutral" size="sm">
                     {pet.species}
                   </Badge>
                 </div>
@@ -301,14 +333,14 @@ export const MyPetsPage: React.FC = () => {
         </div>
       )}
 
-      {/* Modal: Historial Clínico (Read Only for Client) */}
+      {/* Modal: Historial Clínico */}
       {selectedPetForHistory && (
         <Modal
           isOpen={!!selectedPetForHistory}
           onClose={() => setSelectedPetForHistory(null)}
           title={
-            <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-indigo-600" />
+            <div className="flex items-center gap-2.5">
+              {getSpeciesAvatarComponent(selectedPetForHistory.species, 'w-6 h-6')}
               <span>Expediente Clínico: <strong className="text-indigo-600">{selectedPetForHistory.name}</strong></span>
             </div>
           }
@@ -334,7 +366,7 @@ export const MyPetsPage: React.FC = () => {
                   return (
                     <div
                       key={r.uuid || idx}
-                      className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 space-y-2"
+                      className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 space-y-2"
                     >
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-1.5 font-bold text-indigo-600 dark:text-indigo-400">
@@ -386,14 +418,21 @@ export const MyPetsPage: React.FC = () => {
           isOpen={isAppointmentModalOpen}
           onClose={() => setIsAppointmentModalOpen(false)}
           title={
-            <div className="flex items-center gap-2">
-              <CalendarPlus className="w-5 h-5 text-indigo-600" />
+            <div className="flex items-center gap-2.5">
+              {getSpeciesAvatarComponent(selectedPetForAppointment.species, 'w-6 h-6')}
               <span>Agendar Cita para: <strong className="text-indigo-600">{selectedPetForAppointment.name}</strong></span>
             </div>
           }
           maxWidth="md"
         >
           <form onSubmit={handleCreateAppointment} className="space-y-4">
+            {appointmentError && (
+              <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-600 dark:text-red-400">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <span>{appointmentError}</span>
+              </div>
+            )}
+
             <Select
               label="Servicio Médico"
               value={appointmentService}
@@ -408,20 +447,29 @@ export const MyPetsPage: React.FC = () => {
               ]}
             />
 
-            <Input
-              label="Fecha y Hora Sugerida"
-              type="datetime-local"
-              value={appointmentDate}
-              onChange={e => setAppointmentDate(e.target.value)}
-              required
-            />
+            <div>
+              <Input
+                label="Fecha y Hora Deseada"
+                type="datetime-local"
+                min={getCurrentMinDateTime()}
+                value={appointmentDate}
+                onChange={e => {
+                  setAppointmentDate(e.target.value);
+                  setAppointmentError(null);
+                }}
+                required
+              />
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 flex items-center gap-1">
+                <Clock className="w-3 h-3" /> Lun a Sáb: 8:00 AM - 7:00 PM | Dom: 8:00 AM - 2:00 PM
+              </p>
+            </div>
 
             <Textarea
               label="Motivo de la consulta / Observaciones"
               placeholder="Describa brevemente los síntomas o requerimientos..."
               value={appointmentNotes}
               onChange={e => setAppointmentNotes(e.target.value)}
-              rows={3}
+              rows={2}
             />
 
             <div className="grid grid-cols-2 gap-3 pt-2">

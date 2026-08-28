@@ -18,6 +18,8 @@ string medicalRecordsFilePath = Path.Combine(dataDirectory, "medical_records.jso
 string employeesFilePath = Path.Combine(dataDirectory, "employees.json");
 string productsFilePath = Path.Combine(dataDirectory, "products.json");
 string usersFilePath = Path.Combine(dataDirectory, "users.json");
+string hospitalizationFilePath = Path.Combine(dataDirectory, "hospitalizations.json");
+string auditLogsFilePath = Path.Combine(dataDirectory, "audit_logs.json");
 
 // Register Repositories
 builder.Services.AddSingleton<IOwnerRepository>(new JsonOwnerRepository(ownersFilePath));
@@ -27,6 +29,8 @@ builder.Services.AddSingleton<IMedicalRecordRepository>(new JsonMedicalRecordRep
 builder.Services.AddSingleton<IEmployeeRepository>(new JsonEmployeeRepository(employeesFilePath));
 builder.Services.AddSingleton<IProductRepository>(new JsonProductRepository(productsFilePath));
 builder.Services.AddSingleton<IUserRepository>(new JsonUserRepository(usersFilePath));
+builder.Services.AddSingleton<IHospitalizationRepository>(new JsonHospitalizationRepository(hospitalizationFilePath));
+builder.Services.AddSingleton<IAuditRepository>(new JsonAuditRepository(auditLogsFilePath));
 
 // Register Services
 builder.Services.AddScoped<IOwnerService, OwnerService>();
@@ -37,6 +41,8 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<IHospitalizationService, HospitalizationService>();
 
 // Configure JWT Authentication
 var jwtKey = builder.Configuration["Jwt:SecretKey"] ?? "LovelyPetShopSuperSecretKey2026!#ForSecurity*&SafeTokenGenerator";

@@ -1,0 +1,38 @@
+[
+  {
+    "uuid": "227d3327-cb7d-4f4b-9a39-29b5bc823688",
+    "pet_uuid": "pet-1",
+    "pet_name": "Max",
+    "species": "Perro",
+    "owner_name": "Juan P\u00E9rez",
+    "owner_phone": "3001234567",
+    "cage_number": "C-01",
+    "admission_date": "2026-08-26T20:28:34.2531851-05:00",
+    "discharge_date": null,
+    "reason": "Recuperaci\u00F3n post-operatoria por esterilizaci\u00F3n",
+    "status": "Post-Quir\u00FArgico",
+    "attending_vet": "Dr. Carlos G\u00F3mez",
+    "medication_plan": "Meloxicam 0.2mg cada 24h, Cefalexina 250mg cada 12h",
+    "diet_notes": "Dieta blanda gastroent\u00E9rica h\u00FAmeda",
+    "evolution_notes": "Paciente estable, herida quir\u00FArgica limpia sin sangrado.",
+    "created_at": "2026-08-27T20:28:34.2530122-05:00"
+  },
+  {
+    "uuid": "5fd89822-d132-49f3-923a-ae39e2427452",
+    "pet_uuid": "pet-2",
+    "pet_name": "Luna",
+    "species": "Gato",
+    "owner_name": "Mar\u00EDa Rodr\u00EDguez",
+    "owner_phone": "3109876543",
+    "cage_number": "F-02",
+    "admission_date": "2026-08-27T08:28:34.2532941-05:00",
+    "discharge_date": null,
+    "reason": "Cuadro de deshidrataci\u00F3n moderada y gastroenteritis",
+    "status": "En Observaci\u00F3n",
+    "attending_vet": "Dra. Laura Morales",
+    "medication_plan": "Fluidoterapia Hartman 15ml/h, Metoclopramida 0.5mg/kg",
+    "diet_notes": "Ayuno por 6 horas m\u00E1s, luego papilla de recuperaci\u00F3n",
+    "evolution_notes": "Ha tolerado bien los l\u00EDquidos, micci\u00F3n positiva.",
+    "created_at": "2026-08-27T20:28:34.2532932-05:00"
+  }
+]

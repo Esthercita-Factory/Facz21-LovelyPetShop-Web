@@ -118,3 +118,51 @@ export interface StatsSummary {
   averageWeight: number;
   recentPets: Pet[];
 }
+
+export interface VaccineAlert {
+  record_uuid: string;
+  pet_uuid: string;
+  pet_name: string;
+  species: string;
+  breed?: string;
+  owner_name: string;
+  owner_phone: string;
+  owner_email?: string;
+  last_vaccine_date?: string;
+  next_vaccine_date?: string;
+  treatment?: string;
+  diagnosis?: string;
+  days_remaining: number;
+  status: 'Vencida' | 'Urgente (7 días)' | 'Próxima (30 días)' | 'Al Día' | string;
+}
+
+export interface Hospitalization {
+  uuid: string;
+  pet_uuid?: string;
+  pet_name: string;
+  species: string;
+  owner_name: string;
+  owner_phone: string;
+  cage_number: string;
+  admission_date: string;
+  discharge_date?: string | null;
+  reason: string;
+  status: 'En Observación' | 'Post-Quirúrgico' | 'Crítico' | 'En Recuperación' | 'Alta';
+  attending_vet?: string;
+  medication_plan?: string;
+  diet_notes?: string;
+  evolution_notes?: string;
+  created_at?: string;
+}
+
+export interface AuditLog {
+  uuid: string;
+  timestamp: string;
+  user_name: string;
+  user_role: string;
+  action: 'CREAR' | 'ACTUALIZAR' | 'ELIMINAR' | 'ACCESO' | string;
+  module: string;
+  description: string;
+  details?: string;
+}
+

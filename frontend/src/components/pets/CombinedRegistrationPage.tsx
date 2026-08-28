@@ -5,17 +5,20 @@ import { Button } from '../common/Button';
 import { Input } from '../common/Input';
 import { Select } from '../common/Select';
 import { Textarea } from '../common/Textarea';
-import { User, PawPrint, CheckCircle2, UserCheck } from 'lucide-react';
+import { User, PawPrint, CheckCircle2, UserCheck, AlertCircle } from 'lucide-react';
 
 interface CombinedRegistrationPageProps {
   onSuccess?: () => void;
 }
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> = ({
   onSuccess
 }) => {
-  const { showToast } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Owner state
   const [docType, setDocType] = useState('CC');
@@ -35,22 +38,31 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    const cleanEmail = ownerEmail.trim().toLowerCase();
+    if (cleanEmail && !EMAIL_REGEX.test(cleanEmail)) {
+      setErrorMessage('El correo del propietario no tiene un formato válido (ej: usuario@dominio.com).');
+      return;
+    }
+
     setSubmitting(true);
 
     try {
       const body = {
         docType,
-        docNumber,
-        ownerName,
-        ownerPhone,
-        ownerEmail,
-        ownerAddress,
-        petName,
+        docNumber: docNumber.trim(),
+        ownerName: ownerName.trim(),
+        ownerPhone: ownerPhone.trim(),
+        ownerEmail: cleanEmail,
+        ownerAddress: ownerAddress.trim(),
+        petName: petName.trim(),
         species,
-        breed,
+        breed: breed.trim(),
         age: Number(age),
         weight: Number(weight),
-        symptoms
+        symptoms: symptoms.trim()
       };
 
       await apiFetch('/pets/with-owner', {
@@ -58,7 +70,7 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
         body: JSON.stringify(body)
       });
 
-      showToast(`¡Registro exitoso de ${ownerName} y su mascota ${petName}!`);
+      setSuccessMessage(`¡Registro completado con éxito para ${ownerName} y su mascota ${petName}!`);
       
       // Reset form
       setDocNumber('');
@@ -72,9 +84,11 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
       setWeight(5.0);
       setSymptoms('');
 
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        setTimeout(onSuccess, 1500);
+      }
     } catch (err: any) {
-      showToast(err.message || 'Error al completar el registro', 'error');
+      setErrorMessage(err.message || 'Error al completar el registro');
     } finally {
       setSubmitting(false);
     }
@@ -91,6 +105,20 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
           Registra al propietario y su mascota simultáneamente en un solo formulario unificado.
         </p>
       </div>
+
+      {errorMessage && (
+        <div className="flex items-start gap-2.5 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-600 dark:text-red-400 animate-fade-in-scale">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="flex items-start gap-2.5 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-600 dark:text-emerald-400 animate-fade-in-scale">
+          <CheckCircle2 className="w-5 h-5 shrink-0" />
+          <span>{successMessage}</span>
+        </div>
+      )}
 
       {/* Main Form Card */}
       <div className="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-slate-200/80 dark:border-slate-800">
@@ -127,7 +155,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                   label="Número Documento"
                   placeholder="Ej: 1018234567"
                   value={docNumber}
-                  onChange={e => setDocNumber(e.target.value)}
+                  onChange={e => {
+                    setDocNumber(e.target.value);
+                    setErrorMessage(null);
+                  }}
                   required
                 />
               </div>
@@ -136,7 +167,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                 label="Nombre Completo del Dueño"
                 placeholder="Ej: Ana María Morales"
                 value={ownerName}
-                onChange={e => setOwnerName(e.target.value)}
+                onChange={e => {
+                  setOwnerName(e.target.value);
+                  setErrorMessage(null);
+                }}
                 required
               />
 
@@ -146,7 +180,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                   type="tel"
                   placeholder="3001234567"
                   value={ownerPhone}
-                  onChange={e => setOwnerPhone(e.target.value)}
+                  onChange={e => {
+                    setOwnerPhone(e.target.value);
+                    setErrorMessage(null);
+                  }}
                   required
                 />
 
@@ -155,7 +192,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                   type="email"
                   placeholder="ana@correo.com"
                   value={ownerEmail}
-                  onChange={e => setOwnerEmail(e.target.value)}
+                  onChange={e => {
+                    setOwnerEmail(e.target.value);
+                    setErrorMessage(null);
+                  }}
                 />
               </div>
 
@@ -163,7 +203,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                 label="Dirección de Residencia"
                 placeholder="Ej: Carrera 15 # 45-20"
                 value={ownerAddress}
-                onChange={e => setOwnerAddress(e.target.value)}
+                onChange={e => {
+                  setOwnerAddress(e.target.value);
+                  setErrorMessage(null);
+                }}
               />
             </div>
 
@@ -186,7 +229,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                 label="Nombre de la Mascota"
                 placeholder="Ej: Toby"
                 value={petName}
-                onChange={e => setPetName(e.target.value)}
+                onChange={e => {
+                  setPetName(e.target.value);
+                  setErrorMessage(null);
+                }}
                 required
               />
 
@@ -209,7 +255,10 @@ export const CombinedRegistrationPage: React.FC<CombinedRegistrationPageProps> =
                   label="Raza"
                   placeholder="Ej: Schnauzer / Mestizo"
                   value={breed}
-                  onChange={e => setBreed(e.target.value)}
+                  onChange={e => {
+                    setBreed(e.target.value);
+                    setErrorMessage(null);
+                  }}
                 />
               </div>
 
